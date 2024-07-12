@@ -1,14 +1,10 @@
 const express = require('express');
-const { createClient } = require('@supabase/supabase-js');
+const { supabase } = require('./supabaseClient'); 
 const { Pool } = require('pg');
 
 const app = express();
 const port = 5000;
 
-// Supabase setup
-const supabaseUrl = 'https://your-supabase-url.supabase.co';
-const supabaseKey = 'your-supabase-anon-key';
-const supabase = createClient(supabaseUrl, supabaseKey);
 
 // PostgreSQL setup
 const pool = new Pool({
@@ -20,6 +16,9 @@ const pool = new Pool({
 });
 
 app.use(express.json());
+app.get('/api/check', async (req, res) => {
+  res.send('API check!');
+});
 
 app.post('/api/scan', async (req, res) => {
   const { url } = req.body;

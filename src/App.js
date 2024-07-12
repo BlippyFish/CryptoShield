@@ -7,17 +7,10 @@ function App() {
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
+        <p>CryptoShield</p>
+        <p className="App-link">
+          Powered by <a href="https://tokeninsight.com/en/products/api" target="_blank" rel="noopener noreferrer">TokenInsight API</a>
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Reactionary!
-        </a>
       </header>
     </div>
   );
