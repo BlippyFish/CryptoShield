@@ -10,9 +10,14 @@ module.exports = {
   devServer: {
     static: './dist',
     port: 3000,
-    proxy: {
-      '/api': 'http://localhost:5000'
-    }
+    proxy: [
+      {
+        context: ['/api'],
+        target: 'http://localhost:5000',
+      }
+    ],
+    hot: true, // Enable Hot Module Replacement
+    open: true // Open the browser automatically
   },
   module: {
     rules: [
@@ -24,6 +29,10 @@ module.exports = {
       {
         test: /\.css$/,
         use: ['style-loader', 'css-loader']
+      },
+      {
+        test: /\.svg$/, 
+        use: ['svg-url-loader']
       }
     ]
   },
