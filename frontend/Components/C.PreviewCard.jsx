@@ -1,16 +1,21 @@
-const PreviewCard = ({ name, price, symbol, logo, rating }) => {
-    const cardStyle = {
-        height: '250px',
-        width: '400px',
-        margin: '5px 5px 5px 5px',
-        //box-shadow: '10px 10px 5px',
-    }
+import styled from 'styled-components';
 
-    const checkBoxStyle = {
-        height: '15px',
-        width: '15px',
-        cursor: 'pointer',
-    }
+
+const cardStyle = styled.section`
+height: '250px';
+width: '400px';
+margin: '5px 5px 5px 5px';
+box-shadow: '10px 10px 5px';
+`;
+
+const checkBoxStyle = styled.checkbox`
+    height: '15px';
+    width: '15px';
+    cursor: 'pointer';
+    `;
+
+const PreviewCard = ({ name, price, symbol, logo, rating }) => {
+
 
     const handleClick = () => {
     }
