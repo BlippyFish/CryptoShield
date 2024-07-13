@@ -11,7 +11,7 @@ module.exports = {
     static: './dist',
     port: 3000,
     proxy: {
-      '/api': 'http://localhost:5000'
+      '/api': 'http://localhost:8080'
     }
   },
   module: {
