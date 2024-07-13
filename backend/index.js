@@ -1,18 +1,12 @@
 const path = require('path');
 const axios = require('axios').default;
 const express = require('express');
-
-const { createClient } = require('@supabase/supabase-js');
+const { supabase } = require('./supabaseClient');
 const { Pool } = require('pg');
 
 const app = express();
 const PORT = 5000;
 
-const dbFunctionality = () => {
-  // Supabase setup
-  const supabaseUrl = 'https://your-supabase-url.supabase.co';
-  const supabaseKey = 'your-supabase-anon-key';
-  const supabase = createClient(supabaseUrl, supabaseKey);
   
   // PostgreSQL setup
   const pool = new Pool({
@@ -27,7 +21,7 @@ const dbFunctionality = () => {
 app.use(express.json());
 
 // not sure if we need this ---------------------------------------------------------------------------------------------------------
-//
+// we do not. i was just testing routes (wjl)
 // app.post('/api/scan', async (req, res) => {
 //   const { url } = req.body;
 //   // Placeholder for scanning functionality
