@@ -1,5 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Homepage from './B.Homepage';
+import CoinPage from './D.CoinPage';
 
 const App = () => {
 
@@ -8,7 +10,7 @@ const App = () => {
             <Router>
                 <Routes>
                     <Route path="/" element={<Homepage />} />
-                    <Route path="/coin" element={<Coin />} />
+                    <Route path="/coin" element={<CoinPage />} />
                 </Routes>
             </Router>
         </div>
