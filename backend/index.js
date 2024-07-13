@@ -13,7 +13,7 @@ const dbFunctionality = () => {
   const supabaseUrl = 'https://your-supabase-url.supabase.co';
   const supabaseKey = 'your-supabase-anon-key';
   const supabase = createClient(supabaseUrl, supabaseKey);
-  
+
   // PostgreSQL setup
   const pool = new Pool({
     user: 'your-db-user',
@@ -40,7 +40,7 @@ const coinListMiddleware = async (req, res, next) => {
   const options = {
     method: 'GET',
     url: 'https://api.tokeninsight.com/api/v1/coins/list',
-    headers: {accept: 'application/json', TI_API_KEY: 'c8c0fd6ddc4f487291887853c5a5dc92'}
+    headers: { accept: 'application/json', TI_API_KEY: 'c8c0fd6ddc4f487291887853c5a5dc92' }
   };
 
   axios
@@ -63,9 +63,9 @@ const ratingListMiddleware = (req, res, next) => {
   const options = {
     method: 'GET',
     url: 'https://api.tokeninsight.com/api/v1/rating/coins',
-    headers: {accept: 'application/json', TI_API_KEY: 'API_GOES_HERE'}
+    headers: { accept: 'application/json', TI_API_KEY: 'API_GOES_HERE' }
   };
-  
+
   axios
     .request(options)
     .then(function (response) {
