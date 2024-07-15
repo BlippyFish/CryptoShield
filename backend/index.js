@@ -59,6 +59,7 @@ const coinListMiddleware = async (req, res, next) => {
     });
 };
 
+// middleware to retrieve rating list from TI API
 const ratingListMiddleware = (req, res, next) => {
   const options = {
     method: 'GET',
@@ -82,11 +83,51 @@ const ratingListMiddleware = (req, res, next) => {
     });
 };
 
-app.get('/coins', coinListMiddleware, (req, res) => {
+// middleware to retrieve a single coin's complete data from TI API when coin ID is inputted through frontend react component
+const completeCoinMiddleware = (req, res, next) => {
+  
+  const { idCoin } = req.params;
+
+  const options = {
+    method: 'GET',
+    url: `https://api.tokeninsight.com/api/v1/coins/${idCoin}`, // this URL may need to get re-written - may need to drop the "/id" part
+    headers: {accept: 'application/json', TI_API_KEY: 'API_GOES_HERE'},
+  };
+
+
+    // check if the ID is of the correct type of string - if not, throw an error
+
+  axios
+  .request(options)
+  .then(function (response) {
+    res.locals = response.data;
+    console.log('res.locals: ', res.locals);
+    return next();
+  })
+  .catch(function (error) {
+    return next({
+      log: 'Express error handler caught error in completeCoinMiddleware',
+      status: 500,
+      message: { err: 'An error occurred' }
+    })
+  });
+    
+//NEED HANDOFF CODE FOR FRONTEND TO PASS IN COIN ID
+// TokenInsight's endpoint looks like this - https://api.tokeninsight.com/api/v1/coins/{id}
+// need to figure out a way to pass in an ID from the req.params
+
+};
+
+//GET Requests to retrieve data using the middleware routes
+app.get('/api/completeCoin/:id', completeCoinMiddleware, (req, res) => {
   return res.status(200).json(res.locals);
 });
 
-app.get('/ratings', ratingListMiddleware, (req, res) => {
+app.get('/api/coins', coinListMiddleware, (req, res) => {
+  return res.status(200).json(res.locals);
+});
+
+app.get('/api/ratings', ratingListMiddleware, (req, res) => {
   return res.status(200).json(res.locals);
 });
 
