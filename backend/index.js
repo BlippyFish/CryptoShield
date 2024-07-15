@@ -1,18 +1,14 @@
 const path = require('path');
 const axios = require('axios').default;
 const express = require('express');
-
-const { createClient } = require('@supabase/supabase-js');
+const { supabase } = require('./supabaseClient');
 const { Pool } = require('pg');
+const cors = require('cors');
+const dotenv = require('dotenv').config();         
 
 const app = express();
-const PORT = 5000;
+const PORT = 8080;
 
-const dbFunctionality = () => {
-  // Supabase setup
-  const supabaseUrl = 'https://your-supabase-url.supabase.co';
-  const supabaseKey = 'your-supabase-anon-key';
-  const supabase = createClient(supabaseUrl, supabaseKey);
   
   // PostgreSQL setup
   const pool = new Pool({
@@ -22,18 +18,21 @@ const dbFunctionality = () => {
     password: 'your-db-password',
     port: 5432,
   });
-};
+
+
+
 
 app.use(express.json());
 
-// not sure if we need this ---------------------------------------------------------------------------------------------------------
-//
-// app.post('/api/scan', async (req, res) => {
-//   const { url } = req.body;
-//   // Placeholder for scanning functionality
-//   res.send(`Scanning URL: ${url}`);
-// });
-// -----------------------------------------------------------------------------------------------------------------------------------
+// CORS middleware options
+const corsOptions = {
+  origin: 'http://localhost:3000',
+  optionsSuccessStatus: 200 // Some legacy browsers choke on 204
+};
+
+// enable CORS for all routes
+app.use(cors());
+
 
 // middleware to retrieve coin list from TI API
 const coinListMiddleware = async (req, res, next) => {
@@ -64,7 +63,7 @@ const ratingListMiddleware = (req, res, next) => {
   const options = {
     method: 'GET',
     url: 'https://api.tokeninsight.com/api/v1/rating/coins',
-    headers: {accept: 'application/json', TI_API_KEY: 'API_GOES_HERE'}
+    headers: {accept: 'application/json', TI_API_KEY: 'c8c0fd6ddc4f487291887853c5a5dc92'}
   };
   
   axios
