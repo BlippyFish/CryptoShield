@@ -1,7 +1,9 @@
-import axios from 'axios';
+// DEPRECATED -- API is getting started up in backend/index.js instead
 
-const api = axios.create({
-    baseURL: 'http://localhost:5000/api'
-    });
+// import axios from 'axios';
 
-    export default api;
+// const api = axios.create({
+//     baseURL: 'http://localhost:5000/api'
+//     });
+
+//     export default api;
