@@ -90,12 +90,14 @@ const ratingListMiddleware = (req, res, next) => {
 // middleware to retrieve a single coin's complete data from TI API when coin ID is inputted through frontend react component
 const completeCoinMiddleware = (req, res, next) => {
 
-  const { idCoin } = req.params;
+  // TO DO - determine why this destructuring is not working
+  // expected behavior is that we get a variable "idCoin" assigned to req.params.id 
+    // const { idCoin } = req.params.id;
 
   const options = {
     method: 'GET',
-    url: `https://api.tokeninsight.com/api/v1/coins/${idCoin}`, // this URL may need to get re-written - may need to drop the "/id" part
-    headers: { accept: 'application/json', TI_API_KEY: 'API_GOES_HERE' },
+    url: `https://api.tokeninsight.com/api/v1/coins/${req.params.id}`,
+    headers: { accept: 'application/json', TI_API_KEY: 'c8c0fd6ddc4f487291887853c5a5dc92' },
   };
 
 
@@ -115,11 +117,6 @@ const completeCoinMiddleware = (req, res, next) => {
         message: { err: 'An error occurred' }
       })
     });
-
-  //NEED HANDOFF CODE FOR FRONTEND TO PASS IN COIN ID
-  // TokenInsight's endpoint looks like this - https://api.tokeninsight.com/api/v1/coins/{id}
-  // need to figure out a way to pass in an ID from the req.params
-
 };
 
 //GET Requests to retrieve data using the middleware routes
