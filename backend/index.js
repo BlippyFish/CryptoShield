@@ -4,21 +4,26 @@ const express = require('express');
 const { supabase } = require('./supabaseClient');
 const { Pool } = require('pg');
 const cors = require('cors');
-const dotenv = require('dotenv').config();         
+const dotenv = require('dotenv').config();
 
 const app = express();
 const PORT = 8080;
 
-  
-  // PostgreSQL setup
-  const pool = new Pool({
-    user: 'your-db-user',
-    host: 'localhost',
-    database: 'your-db-name',
-    password: 'your-db-password',
-    port: 5432,
-  });
+// const dbFunctionality = () => {
+//   // Supabase setup
+//   const supabaseUrl = 'https://your-supabase-url.supabase.co';
+//   const supabaseKey = 'your-supabase-anon-key';
+//   const supabase = createClient(supabaseUrl, supabaseKey);
 
+//   // PostgreSQL setup
+//   const pool = new Pool({
+//     user: 'your-db-user',
+//     host: 'localhost',
+//     database: 'your-db-name',
+//     password: 'your-db-password',
+//     port: 5432,
+//   });
+// };
 
 
 
@@ -39,7 +44,7 @@ const coinListMiddleware = async (req, res, next) => {
   const options = {
     method: 'GET',
     url: 'https://api.tokeninsight.com/api/v1/coins/list',
-    headers: {accept: 'application/json', TI_API_KEY: 'c8c0fd6ddc4f487291887853c5a5dc92'}
+    headers: { accept: 'application/json', TI_API_KEY: 'c8c0fd6ddc4f487291887853c5a5dc92' }
   };
 
   axios
@@ -63,9 +68,9 @@ const ratingListMiddleware = (req, res, next) => {
   const options = {
     method: 'GET',
     url: 'https://api.tokeninsight.com/api/v1/rating/coins',
-    headers: {accept: 'application/json', TI_API_KEY: 'c8c0fd6ddc4f487291887853c5a5dc92'}
+    headers: { accept: 'application/json', TI_API_KEY: 'c8c0fd6ddc4f487291887853c5a5dc92' }
   };
-  
+
   axios
     .request(options)
     .then(function (response) {
@@ -84,36 +89,36 @@ const ratingListMiddleware = (req, res, next) => {
 
 // middleware to retrieve a single coin's complete data from TI API when coin ID is inputted through frontend react component
 const completeCoinMiddleware = (req, res, next) => {
-  
+
   const { idCoin } = req.params;
 
   const options = {
     method: 'GET',
     url: `https://api.tokeninsight.com/api/v1/coins/${idCoin}`, // this URL may need to get re-written - may need to drop the "/id" part
-    headers: {accept: 'application/json', TI_API_KEY: 'API_GOES_HERE'},
+    headers: { accept: 'application/json', TI_API_KEY: 'API_GOES_HERE' },
   };
 
 
-    // check if the ID is of the correct type of string - if not, throw an error
+  // check if the ID is of the correct type of string - if not, throw an error
 
   axios
-  .request(options)
-  .then(function (response) {
-    res.locals = response.data;
-    console.log('res.locals: ', res.locals);
-    return next();
-  })
-  .catch(function (error) {
-    return next({
-      log: 'Express error handler caught error in completeCoinMiddleware',
-      status: 500,
-      message: { err: 'An error occurred' }
+    .request(options)
+    .then(function (response) {
+      res.locals = response.data;
+      console.log('res.locals: ', res.locals);
+      return next();
     })
-  });
-    
-//NEED HANDOFF CODE FOR FRONTEND TO PASS IN COIN ID
-// TokenInsight's endpoint looks like this - https://api.tokeninsight.com/api/v1/coins/{id}
-// need to figure out a way to pass in an ID from the req.params
+    .catch(function (error) {
+      return next({
+        log: 'Express error handler caught error in completeCoinMiddleware',
+        status: 500,
+        message: { err: 'An error occurred' }
+      })
+    });
+
+  //NEED HANDOFF CODE FOR FRONTEND TO PASS IN COIN ID
+  // TokenInsight's endpoint looks like this - https://api.tokeninsight.com/api/v1/coins/{id}
+  // need to figure out a way to pass in an ID from the req.params
 
 };
 
