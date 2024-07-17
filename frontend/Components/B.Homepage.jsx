@@ -24,7 +24,7 @@ background-color: #2c3e50;
 padding: 10px 20px;
 border-radius: 25px;
 width: 50%;
-margin: 0 auto;
+margin: 300px;
 `;
 
 const SearchBar = styled.input`
@@ -57,23 +57,51 @@ const HomePage = () => {
     const [searchTerm, setSearchTerm] = useState('');
 
     useEffect(() => {
-        fetch('{We need to put API endpoint here}')
-            .then((response) => response.json())
-            .then((data) => {
-                setCryptoData(data);
-                setFilteredData(data);
+        const fetchData = async () => {
+            try {
+                // console.log("Inside fetchData")
+                const response = await fetch('/api/coins', {
+                    method: "GET"
+                });
+                if (response.ok) {
+                    // console.log("Inside if response ok")
+                    const data = await response.json();
+                    console.log("data: ", data);
+                    console.log("trying to access items list:", data.coinList.data.items)
+                    const newArr = data.coinList.data.items;
+                    console.log("newArr: ", newArr)
+                    // if (Array.isArray(newArr)) {
+                    //     console.log("Inside Array.isArray")
+                    setCryptoData(newArr);
+                    setFilteredData(newArr);
+                    //}
+                    // console.log("cryptoData: ", cryptoData);
+                } else {
+                    throw new Error(`Error: ${response.status}`);
+                }
+            } catch (error) {
+                // console.error("Fetch Error:", error);
+                setError(error.message);
+            } finally {
                 setLoading(false);
-            })
-            .catch((error) => {
-                setError(error);
-                setLoading(false);
-            });
+            }
+        };
+
+        fetchData();
     }, []);
 
+    // useEffect(() => {
+
+
+
+    // })
+
     useEffect(() => {
+        console.log("cryptoData: ", cryptoData)
         const filtered = cryptoData.filter((crypto) =>
             crypto.name.toLowerCase().includes(searchTerm.toLowerCase())
         );
+        console.log("filtered: ", filtered)
         setFilteredData(filtered);
     }, [searchTerm, cryptoData]);
 
@@ -88,23 +116,24 @@ const HomePage = () => {
     return (
         <Container>
             <Title>CryptoShield</Title>
+
             <CardContainer>
-                {filteredData.map((crypto, index) => (
+                {cryptoData.map((crypto, index) => (
                     <PreviewCard
                         key={index}
                         name={crypto.name}
                         price={crypto.price}
-                        symbol={crypto.symbol}
                         logo={crypto.logo}
-                        rating={crypto.rating}
+                        rank={crypto.rank}
                     />
                 ))}
             </CardContainer>
+
             <SearchBarContainer>
                 <SearchIcon>≡</SearchIcon>
                 <SearchBar
                     type="text"
-                    placeholder="Hinted search text"
+                    placeholder="Search"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                 />
