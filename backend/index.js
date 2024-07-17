@@ -110,7 +110,45 @@ const completeCoinMiddleware = async (req, res, next) => {
     });
   }
 };
+
+const historyCoinMiddleware1d = async (req, res, next) => {
+  const { id } = req.params;
+
+  const options = {
+    method: 'GET',
+    url: `https://api.tokeninsight.com/api/v1/history/coins/${id}?interval=hour&length=24`,
+    headers: { accept: 'application/json', TI_API_KEY: 'c8c0fd6ddc4f487291887853c5a5dc92' },
+  };
+
+  try {
+    const response = await axios.request(options);
+    res.locals.historyCoin1d = response.data.data.market_chart;
+    
+    console.log('res.locals: ', res.locals);
+    return next();
+  }
+  catch (error) {
+    return next({
+      log: 'Express error handler caught error in historyCoinMiddleware1d',
+      status: 500,
+      message: { err: 'An error occurred' }
+    });
+  }
+
+};
+
+
+
+
+
+
 //GET Requests to retrieve data using the middleware routes
+
+app.get('/api/historyCoin/:id', historyCoinMiddleware1d, (req, res) => {
+  return res.status(200).json(res.locals);
+});
+
+
 app.get('/api/completeCoin/:id', completeCoinMiddleware, (req, res) => {
   return res.status(200).json(res.locals);
 });
