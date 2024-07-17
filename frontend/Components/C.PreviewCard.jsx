@@ -72,7 +72,7 @@ const PreviewCard = ({ name, price, symbol, logo, rating }) => {
       </Header>
       <Name>{name}</Name>
       <Logo src={logo} alt={`${name} logo`} />
-      <Price>Active Price: {price}</Price>
+      <Price>Active Price: ${Math.round(price)}</Price>
       <Rating>Rating: {rating}</Rating>
     </CardStyle>
   );
