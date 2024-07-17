@@ -1,35 +1,89 @@
 import React, { useEffect, useState } from 'react';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import Plot from 'react-plotly.js';
 import axios from 'axios';
 import testData from './testData.json';
 
 const Graph = () => {
     const [data, setData] = useState([]);
+    const [scatterData, setScatterData] = useState([]);
+    const [name, setName] = useState('');
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('/api/historyCoin/bitcoin'); // Replace 'bitcoin' with the actual coin ID
-                setData(response.data);
+                // Uncomment and adjust the following line to fetch actual data from the API
+                // const response = await axios.get('/api/historyCoin/tether?interval=day&length=30');
+                const response = testData; // Use testData directly
+                setName(response.data.name);
+                const chartData = response.data.market_chart.map(item => ({
+                    timestamp: new Date(item.timestamp).toLocaleString(),
+                    price: item.price,
+                    volume: item.vol_spot_24h
+                }));
+
+                const priceVolume = {
+                    x: chartData.map(item => item.timestamp),
+                    y: chartData.map(item => item.price),
+                    type: 'scatter',
+                    mode: 'lines',
+                    name: 'Price',
+                    yaxis: 'y1'
+                };
+
+                const volume = {
+                    x: chartData.map(item => item.timestamp),
+                    y: chartData.map(item => item.volume),
+                    type: 'bar',
+                    name: 'Volume',
+                    yaxis: 'y2'
+                };
+
+                const scatter = {
+                    x: chartData.map(item => item.price),
+                    y: chartData.map(item => item.volume),
+                    mode: 'markers',
+                    type: 'scatter',
+                    name: 'Price vs Volume'
+                };
+
+                setData([priceVolume, volume]);
+                setScatterData([scatter]);
             } catch (error) {
                 console.error('Error fetching data', error);
-                setData(testData); // Use test data in case of an error
             }
         };
         fetchData();
     }, []);
 
     return (
-        <ResponsiveContainer width="100%" height={400}>
-            <LineChart data={data}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="timestamp" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <Line type="monotone" dataKey="price" stroke="#8884d8" />
-            </LineChart>
-        </ResponsiveContainer>
+        <div>
+            <h2>{name} Price and Volume Over Time</h2>
+            <Plot
+                data={data}
+                layout={{
+                    title: `${name} Price and Volume Over Time`,
+                    xaxis: { title: 'Time' },
+                    yaxis: { title: 'Price', side: 'left' },
+                    yaxis2: {
+                        title: 'Volume',
+                        overlaying: 'y',
+                        side: 'right'
+                    },
+                    barmode: 'group'
+                }}
+                style={{ width: '100%', height: '400px' }}
+            />
+            <h2>Scatter Plot of {name} Price vs Volume</h2>
+            <Plot
+                data={scatterData}
+                layout={{
+                    title: `Scatter Plot of ${name} Price vs Volume`,
+                    xaxis: { title: 'Price' },
+                    yaxis: { title: 'Volume' }
+                }}
+                style={{ width: '100%', height: '400px' }}
+            />
+        </div>
     );
 };
 
