@@ -47,78 +47,69 @@ const coinListMiddleware = async (req, res, next) => {
     headers: { accept: 'application/json', TI_API_KEY: 'c8c0fd6ddc4f487291887853c5a5dc92' }
   };
 
-  axios
-    .request(options)
-    .then(function (response) {
-      res.locals.coinList = response.data;
-      console.log('res.locals: ', res.locals);
-      return next();
-    })
-    .catch(function (error) {
-      return next({
-        log: 'Express error handler caught error in coinListMiddleware',
-        status: 500,
-        message: { err: 'An error occurred' }
-      })
+  try {
+    const response = await axios.request(options);
+    res.locals.coinList = response.data;
+    console.log('res.locals: ', res.locals);
+    return next();
+  } catch (error) {
+    return next({
+      log: 'Express error handler caught error in coinListMiddleware',
+      status: 500,
+      message: { err: 'An error occurred' }
     });
+  }
 };
 
+
 // middleware to retrieve rating list from TI API
-const ratingListMiddleware = (req, res, next) => {
+const ratingListMiddleware = async (req, res, next) => {
   const options = {
     method: 'GET',
     url: 'https://api.tokeninsight.com/api/v1/rating/coins',
     headers: { accept: 'application/json', TI_API_KEY: 'c8c0fd6ddc4f487291887853c5a5dc92' }
   };
 
-  axios
-    .request(options)
-    .then(function (response) {
-      res.locals = response.data;
-      console.log('res.locals: ', res.locals);
-      return next();
-    })
-    .catch(function (error) {
-      return next({
-        log: 'Express error handler caught error in ratingListMiddleware',
-        status: 500,
-        message: { err: 'An error occurred' }
-      })
+  try {
+    const response = await axios.request(options);
+    res.locals.ratingList = response.data; // Updated to properly store in res.locals.ratingList
+    console.log('res.locals: ', res.locals);
+    return next();
+  } catch (error) {
+    return next({
+      log: 'Express error handler caught error in ratingListMiddleware',
+      status: 500,
+      message: { err: 'An error occurred' }
     });
+  }
 };
-
 // middleware to retrieve a single coin's complete data from TI API when coin ID is inputted through frontend react component
-const completeCoinMiddleware = (req, res, next) => {
-
-  // TO DO - determine why this destructuring is not working
-  // expected behavior is that we get a variable "idCoin" assigned to req.params.id 
-    // const { idCoin } = req.params.id;
-
+const completeCoinMiddleware = async (req, res, next) => {
+  // destructure id from req.params    
+  const { id } = req.params;
+  /* req.params.id is a string, not an object with an idCoin prop. 
+  see line 95 below for reference
+  */
+  
   const options = {
     method: 'GET',
-    url: `https://api.tokeninsight.com/api/v1/coins/${req.params.id}`,
+    url: `https://api.tokeninsight.com/api/v1/coins/${id}`, // use the destructured id
     headers: { accept: 'application/json', TI_API_KEY: 'c8c0fd6ddc4f487291887853c5a5dc92' },
   };
 
-
-  // check if the ID is of the correct type of string - if not, throw an error
-
-  axios
-    .request(options)
-    .then(function (response) {
-      res.locals = response.data;
-      console.log('res.locals: ', res.locals);
-      return next();
-    })
-    .catch(function (error) {
-      return next({
-        log: 'Express error handler caught error in completeCoinMiddleware',
-        status: 500,
-        message: { err: 'An error occurred' }
-      })
+  try {
+    const response = await axios.request(options);
+    res.locals.completeCoin = response.data; // Updated to properly store in res.locals.completeCoin
+    console.log('res.locals: ', res.locals);
+    return next();
+  } catch (error) {
+    return next({
+      log: 'Express error handler caught error in completeCoinMiddleware',
+      status: 500,
+      message: { err: 'An error occurred' }
     });
+  }
 };
-
 //GET Requests to retrieve data using the middleware routes
 app.get('/api/completeCoin/:id', completeCoinMiddleware, (req, res) => {
   return res.status(200).json(res.locals);
