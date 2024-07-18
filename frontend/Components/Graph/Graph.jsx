@@ -11,8 +11,10 @@ const Graph = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-               
-                const response = await axios.get('/api/historyCoin/${coinId}?interval=${interval}&length=${length}');
+                const coinId = 'bitcoin';
+                const interval = 'day';
+                const length = '7'
+                const response = await axios.get(`api/historyCoin/${coinId}?interval=${interval}&length=${length}`);
                 // const response = testData; // uncomment this line to use test data
                 setName(response.data.name);
                 const chartData = response.data.market_chart.map(item => ({
