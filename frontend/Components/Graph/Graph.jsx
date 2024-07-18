@@ -13,7 +13,8 @@ const Graph = () => {
             try {
                 const coinId = 'bitcoin';
                 const interval = 'day';
-                const length = '7'
+                const length = '7';
+
                 const response = await axios.get(`api/historyCoin/${coinId}?interval=${interval}&length=${length}`);
                 // const response = testData; // uncomment this line to use test data
                 setName(response.data.name);
