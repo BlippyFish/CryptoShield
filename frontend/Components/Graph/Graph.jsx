@@ -88,5 +88,3 @@ const Graph = () => {
 };
 
 export default Graph;
-
-//needs styling
