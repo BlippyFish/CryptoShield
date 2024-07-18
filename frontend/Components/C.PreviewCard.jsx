@@ -27,12 +27,15 @@ const CheckBoxStyle = styled.input`
   height: 15px;
   width: 15px;
   cursor: pointer;
+  margin-top: 25px;
 `;
 
 const CompareText = styled.span`
   font-size: 0.75rem;
   color: #333;
   text-align: left;
+  margin-top: 25px;
+  margin-right: 5px;
 `;
 
 const Name = styled.h3`
@@ -49,11 +52,11 @@ const Price = styled.div`
   margin: 10px 0;
 `;
 
-const Rating = styled.div`
+const Rank = styled.div`
   margin: 10px 0;
 `;
 
-const PreviewCard = ({ name, price, symbol, logo, rating }) => {
+const PreviewCard = ({ name, price, symbol, logo, rank }) => {
   const [checked, setChecked] = useState(false);
 
   const handleClick = () => {
@@ -74,7 +77,7 @@ const PreviewCard = ({ name, price, symbol, logo, rating }) => {
       <Name>{name}</Name>
       <Logo src={logo} alt={`${name} logo`} />
       <Price>Active Price: ${Math.round(price)}</Price>
-      <Rating>Rank: {rating}</Rating>
+      <Rank>Rank: {rank}</Rank>
     </CardStyle>
   );
 };

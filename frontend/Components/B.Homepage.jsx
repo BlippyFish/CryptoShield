@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import PreviewCard from './C.PreviewCard';
+import Select from 'react-select';
 
 const Container = styled.div`
 background-color: #0f1c3f;
@@ -11,24 +12,25 @@ text-align: center;
 `;
 
 const Title = styled.h1`
+justify-content: center;
 font-size: 3rem;
-margin-bottom: 40px;
+margin-bottom: 25px;
 `;
 
 const SearchBarContainer = styled.div`
 display: flex;
-align-items: center;
-justify-content: center;
-margin-bottom: 20px;
 background-color: #2c3e50;
 padding: 10px 20px;
 border-radius: 25px;
-width: 50%;
-margin: 200px;
-margin-left: 300px;
+width: 400px;
+margin: 25px;
+margin-left: 525px;
 `;
 
 const SearchBar = styled.input`
+display: flex;
+align-items: center;
+justify-content: center;
 width: 100%;
 padding: 10px;
 border: none;
@@ -69,16 +71,17 @@ const HomePage = () => {
                 if (response.ok) {
                     // console.log("Inside if response ok")
                     const data = await response.json();
-                    console.log("data: ", data);
-                    console.log("trying to access items list:", data.coinList.data.items)
+                    //console.log("data: ", data);
+                    //console.log("trying to access items list:", data.coinList.data.items)
                     const newArr = data.coinList.data.items;
-                    console.log("newArr: ", newArr)
+                    //console.log("newArr: ", newArr)
                     // if (Array.isArray(newArr)) {
                     //     console.log("Inside Array.isArray")
                     setCryptoData(newArr);
                     setFilteredData(newArr);
                     //}
                     // console.log("cryptoData: ", cryptoData);
+                    //console.log("Trying to get rank: ", cryptoData.indexOf("ethereum"))
                 } else {
                     throw new Error(`Error: ${response.status}`);
                 }
@@ -100,7 +103,8 @@ const HomePage = () => {
     // })
 
     useEffect(() => {
-        console.log("cryptoData: ", cryptoData)
+        //console.log("cryptoData: ", cryptoData)
+        console.log("searchTerm: ", searchTerm)
         const filtered = cryptoData.filter((crypto) =>
             crypto.name.toLowerCase().includes(searchTerm.toLowerCase())
         );
@@ -127,18 +131,26 @@ const HomePage = () => {
                         name={crypto.name}
                         price={crypto.price}
                         logo={crypto.logo}
-                        rank={crypto.rank}
+                        rank={index + 1}
                     />
                 ))}
             </CardContainer>
 
             <SearchBarContainer>
-                <SearchBar
+                {/* <SearchBar
                     type="text"
                     placeholder="Search"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                />
+                /> */}
+                <Select
+                unstyled='true'
+                menuPlacement='auto'
+                menuPosition='absolute'
+                placeholder="Search"
+                options = {filteredData}
+                value = {filteredData}
+                onChange={(e) => setSearchTerm(e.target.value)} />
                 <SearchIcon>🔍</SearchIcon>
             </SearchBarContainer>
         </Container>
