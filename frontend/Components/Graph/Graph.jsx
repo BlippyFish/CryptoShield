@@ -11,9 +11,17 @@ const Graph = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const coinId = 'bitcoin';
+
+                // hard-coding these variables here for testing purposes.  ideally coinId would get passed in when the Graph component is rendered 
+                    // by the CoinPage/Coin via the user behavior,
+                    // i.e. the user clicks on Bitcoin from the Landing Page, causing the CoinPage/Coin for Bitcoin to render, thereby rendering the Graph component and 
+                    // passing in Bitcoin's ID, 'bitcoin'
+                    // interval and length could be pieces of state managed at the Coin level, with default values such as interval=hour, length=24,
+                    // but assignable by the user, either continuously or via presets, i.e. '1d', '7d', '30d', '90d', '365d'
+
+                const coinId = 'ethereum';
                 const interval = 'day';
-                const length = '7';
+                const length = '14';
 
                 const response = await axios.get(`api/historyCoin/${coinId}?interval=${interval}&length=${length}`);
                 // const response = testData; // uncomment this line to use test data
