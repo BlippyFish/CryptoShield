@@ -44,9 +44,11 @@ margin: 0 10px;
 `;
 
 const CardContainer = styled.div`
-display: flex;
-justify-content: center;
-gap: 20px;
+display: grid;
+grid-template-columns: 1fr 15em 1fr;
+align-items: start;
+justify-items: center;
+grid-gap: 10px;
 `;
 
 const HomePage = () => {
@@ -118,7 +120,7 @@ const HomePage = () => {
             <Title>CryptoShield</Title>
 
             <CardContainer>
-                {cryptoData.map((crypto, index) => (
+                {cryptoData.slice(0, 6).map((crypto, index) => (
                     <PreviewCard
                         key={index}
                         name={crypto.name}

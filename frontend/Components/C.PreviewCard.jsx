@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 const CardStyle = styled.section`
-  height: 250px;
+  height: 200px;
   width: 400px;
   margin: 5px;
   box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.5);
