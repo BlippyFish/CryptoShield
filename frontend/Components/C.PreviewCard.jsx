@@ -32,6 +32,7 @@ const CheckBoxStyle = styled.input`
 const CompareText = styled.span`
   font-size: 0.75rem;
   color: #333;
+  text-align: left;
 `;
 
 const Name = styled.h3`
@@ -73,7 +74,7 @@ const PreviewCard = ({ name, price, symbol, logo, rating }) => {
       <Name>{name}</Name>
       <Logo src={logo} alt={`${name} logo`} />
       <Price>Active Price: ${Math.round(price)}</Price>
-      <Rating>Rating: {rating}</Rating>
+      <Rating>Rank: {rating}</Rating>
     </CardStyle>
   );
 };

@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Homepage from './B.Homepage';
 import PreviewCard from './C.PreviewCard';
-// import CoinPage from './D.CoinPage';
+import CoinPage from './D.CoinPage';
 
 const App = () => {
 
@@ -10,8 +10,8 @@ const App = () => {
         <div>
             <Router>
                 <Routes>
-                    <Route path="/" element={<Homepage />} />
-                    {/* <Route path="/coin" element={<CoinPage />} /> */}
+                    {/* <Route path="/" element={<Homepage />} /> */}
+                    <Route path="/" element={<CoinPage />} />
                 </Routes>
             </Router>
         </div>

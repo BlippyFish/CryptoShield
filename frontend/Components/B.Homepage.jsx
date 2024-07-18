@@ -24,7 +24,8 @@ background-color: #2c3e50;
 padding: 10px 20px;
 border-radius: 25px;
 width: 50%;
-margin: 300px;
+margin: 200px;
+margin-left: 300px;
 `;
 
 const SearchBar = styled.input`
@@ -132,7 +133,6 @@ const HomePage = () => {
             </CardContainer>
 
             <SearchBarContainer>
-                <SearchIcon>≡</SearchIcon>
                 <SearchBar
                     type="text"
                     placeholder="Search"
