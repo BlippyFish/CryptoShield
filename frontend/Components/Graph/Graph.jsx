@@ -11,9 +11,9 @@ const Graph = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                // Uncomment and adjust the following line to fetch actual data from the API
-                // const response = await axios.get('/api/historyCoin/tether?interval=day&length=30');
-                const response = testData; // Use testData directly
+               
+                const response = await axios.get('/api/historyCoin/${coinId}?interval=${interval}&length=${length}');
+                // const response = testData; // uncomment this line to use test data
                 setName(response.data.name);
                 const chartData = response.data.market_chart.map(item => ({
                     timestamp: new Date(item.timestamp).toLocaleString(),
