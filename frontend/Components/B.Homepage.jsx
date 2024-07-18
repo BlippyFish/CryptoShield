@@ -24,7 +24,8 @@ background-color: #2c3e50;
 padding: 10px 20px;
 border-radius: 25px;
 width: 50%;
-margin: 300px;
+margin: 200px;
+margin-left: 300px;
 `;
 
 const SearchBar = styled.input`
@@ -118,7 +119,7 @@ const HomePage = () => {
             <Title>CryptoShield</Title>
 
             <CardContainer>
-                {cryptoData.map((crypto, index) => (
+                {cryptoData.slice(0, 6).map((crypto, index) => (
                     <PreviewCard
                         key={index}
                         name={crypto.name}
@@ -130,7 +131,6 @@ const HomePage = () => {
             </CardContainer>
 
             <SearchBarContainer>
-                <SearchIcon>≡</SearchIcon>
                 <SearchBar
                     type="text"
                     placeholder="Search"
