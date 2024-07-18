@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import Graph from './Graph/Graph'; // Import the Graph component
+
 
 const Container = styled.div`
   display: flex;
@@ -9,7 +11,7 @@ const Container = styled.div`
   padding: 20px;
 `;
 
-const Graph = styled.section`
+const GraphContainer = styled.section` //changed variable name to avoid confusion with Graph component
   width: 60%;
   margin: 10px;
   display: flex;
@@ -82,9 +84,9 @@ const Coin = ({ name, price, symbol, logo, volume, percentChange24H, rank, ratin
 
   return (
     <Container>
-      <Graph>
-        <div>Chart Placeholder</div>
-      </Graph>
+      <GraphContainer>
+        <Graph coinId={symbol} /> {/* Pass the coin symbol to the Graph component */}
+      </GraphContainer>
       <Sidebar>
         <CoinName>Bitcoin</CoinName>
         <BuyButton type="button"><b>Buy</b></BuyButton>

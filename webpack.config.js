@@ -11,7 +11,7 @@ module.exports = {
     static: {
       directory: path.join(__dirname, 'dist'),
     },
-    port: 5001,
+    port: 3000,
     proxy: [
       {
         context: ['/api'],
