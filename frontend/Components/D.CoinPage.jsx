@@ -23,18 +23,20 @@ const CoinPage = () => {
     const [moreCryptoData, setMoreCryptoData] = useState([]);
     const [error, setError] = useState(null);
 
+    // const coinId = props.coinId;
+    const coinId = 'ethereum';
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch('/api/coins', {
+                const response = await fetch(`/api/completeCoin/${coinId}`, {
                     method: "GET"
                 });
                 if (response.ok) {
                     const data = await response.json();
-                    const newArr = data.coinList.data.items;
+                    const newArr = data.completeCoin.data;
                     setCryptoData(newArr).toLocaleString('en-US');
-                    setFilteredData(newArr);
+                    // setFilteredData(newArr);
                 } else {
                     throw new Error(`Error: ${response.status}`);
                 }
@@ -47,27 +49,27 @@ const CoinPage = () => {
         fetchData();
     }, []);
 
-    useEffect(() => {
-        const fetchMoreData = async () => {
-            try {
-                const response = await fetch('/api/ratings', {
-                    method: "GET"
-                });
-                if (response.ok) {
-                    const data = await response.json();
-                    const moreDataArr = data.data.items;
-                    setMoreCryptoData(moreDataArr);
-                } else {
-                    throw new Error(`Error: ${response.status}`);
-                }
-            } catch (error) {
-                // console.error("Fetch Error:", error);
-                setError(error.message);
-            }
-        };
+    // useEffect(() => {
+    //     const fetchMoreData = async () => {
+    //         try {
+    //             const response = await fetch('/api/ratings', {
+    //                 method: "GET"
+    //             });
+    //             if (response.ok) {
+    //                 const data = await response.json();
+    //                 const moreDataArr = data.data.items;
+    //                 setMoreCryptoData(moreDataArr);
+    //             } else {
+    //                 throw new Error(`Error: ${response.status}`);
+    //             }
+    //         } catch (error) {
+    //             // console.error("Fetch Error:", error);
+    //             setError(error.message);
+    //         }
+    //     };
 
-        fetchMoreData();
-    }, []);
+    //     fetchMoreData();
+    // }, []);
 
 
 
@@ -76,17 +78,24 @@ const CoinPage = () => {
 
         <Container>
             <Content>
-                {cryptoData.slice(0, 1).map((crypto, index) => (
-                    <Coin
-                        key={index}
-                        name={crypto.name}
-                        price={crypto.price}
-                        rank={cryptoData.indexOf(crypto)}
-                        rating={crypto.rating_score}
-                    // need to add more data points
-
-                    />
-                ))}
+                <Coin
+                    key={coinId}
+                    id={coinId}
+                    name={cryptoData.name}
+                    price={cryptoData.price}
+                    rank={cryptoData.whereToFindTheRank}
+                    rating={cryptoData.rating_score}
+                    symbol={cryptoData.symbol}
+                    logo={cryptoData.logo}
+                    volume={cryptoData.volume}
+                    percentChange24H={cryptoData.percentChange24H}
+                    marketCap={cryptoData.marketCap}
+                    circulatingSupply={cryptoData.circulatingSupply}
+                    totalSupply={cryptoData.totalSupply}
+                    low={cryptoData.low}
+                    high={cryptoData.high}
+                // need to add more data points
+                />
             </Content>
         </Container >
 
