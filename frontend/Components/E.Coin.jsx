@@ -83,7 +83,7 @@ const Coin = ({ name, price, symbol, logo, volume, percentChange24H, rank, ratin
   return (
     <Container>
       <Graph>
-        <div>Chart Placeholder</div>
+        <div>Graph Placeholder</div>
       </Graph>
       <Sidebar>
         <CoinName>Bitcoin</CoinName>
