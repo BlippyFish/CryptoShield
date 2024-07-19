@@ -2,10 +2,6 @@ import React, { useEffect, useState } from 'react'; // Import React and hooks (u
 import Plot from 'react-plotly.js'; // Import Plot component from react-plotly.js
 import axios from 'axios'; // Import axios for making HTTP requests
 import testData from './testData.json'; // Import test data (can be removed when using actual data)
-import React, { useEffect, useState } from 'react'; // Import React and hooks (useEffect and useState)
-import Plot from 'react-plotly.js'; // Import Plot component from react-plotly.js
-import axios from 'axios'; // Import axios for making HTTP requests
-import testData from './testData.json'; // Import test data (can be removed when using actual data)
 
 const Graph = ({ coinId }) => { // Define Graph component, accepting coinId as a prop
     const [data, setData] = useState([]); // State to store the data for the combined line and bar chart
