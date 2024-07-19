@@ -144,13 +144,13 @@ const HomePage = () => {
                     onChange={(e) => setSearchTerm(e.target.value)}
                 /> */}
                 <Select
-                unstyled='true'
-                menuPlacement='auto'
-                menuPosition='absolute'
-                placeholder="Search"
-                options = {filteredData}
-                value = {filteredData}
-                onChange={(e) => setSearchTerm(e.target.value)} />
+                    unstyled='true'
+                    menuPlacement='auto'
+                    menuPosition='absolute'
+                    placeholder="Search"
+                    options={filteredData}
+                    value={filteredData}
+                    onChange={(e) => setSearchTerm(e.target.value)} />
                 <SearchIcon>🔍</SearchIcon>
             </SearchBarContainer>
         </Container>

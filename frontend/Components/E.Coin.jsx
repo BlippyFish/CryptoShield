@@ -75,10 +75,10 @@ const NewsText = styled.div`
 `;
 
 
-const Coin = ({ name, price, symbol, logo, volume, percentChange24H, rank, rating, marketCap, circulatingSupply, totalSupply, low, high }) => {
+const Coin = ({ name, price, symbol, logo, volume, percentChange24H, rank, rating_score, marketCap, circulatingSupply, totalSupply, low, high }) => {
 
-  const [cryptoData, setCryptoData] = useState([]);
-  const [filteredData, setFilteredData] = useState([]);
+  const [coinsData, setCoinsData] = useState([]);
+  const [ratingsData, setRatingsData] = useState([]);
 
   return (
     <Container>
@@ -86,17 +86,14 @@ const Coin = ({ name, price, symbol, logo, volume, percentChange24H, rank, ratin
         <div>Graph Placeholder</div>
       </Graph>
       <Sidebar>
-        <CoinName>Bitcoin</CoinName>
+        <CoinName>{name}</CoinName>
         <BuyButton type="button"><b>Buy</b></BuyButton>
-        <Price>{`${'$' + price.toLocaleString('en-US')}`}</Price>
-        <CoinDetail>Rank: {rank}</CoinDetail>
-        <CoinDetail>Rating: </CoinDetail>
+        <Price>{`${'$' + price}`}</Price>
+        <CoinDetail>Rank: #{rank}</CoinDetail>
+        <CoinDetail>Rating: {rating_score}</CoinDetail>
         <CoinDetail>Market Cap: </CoinDetail>
-        <CoinDetail>24H Volume: </CoinDetail>
         <CoinDetail>Circulating Supply: </CoinDetail>
         <CoinDetail>Total Supply: </CoinDetail>
-        <CoinDetail>24H Low: </CoinDetail>
-        <CoinDetail>24H High: </CoinDetail>
         <NewsCard>
           <NewsImage src="https://via.placeholder.com/50" alt="news" />
           <NewsText>
