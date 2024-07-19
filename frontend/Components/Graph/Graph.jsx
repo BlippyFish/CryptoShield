@@ -69,7 +69,7 @@ const Graph = ({ coinId }) => { // Define Graph component, accepting coinId as a
                     name: 'Price vs Volume' // Legend name
                 };
 
-                setData([priceVolume, volume]); // Set the data for the line and bar chart
+                setData([volume, priceVolume]); // Set the data for the line and bar chart
                 setScatterData([scatter]); // Set the data for the scatter plot
             } catch (error) {
                 console.error('Error fetching data', error); // Log any errors
