@@ -86,7 +86,7 @@ tiApiController.historyCoinMiddleware1d = async (req, res, next) => {
 
   try {
     const response = await axios.request(options);
-    res.locals.historyCoin1d = response.data.data.market_chart;
+    res.locals.historyCoin1d = response
     
     console.log('res.locals: ', res.locals);
     return next();

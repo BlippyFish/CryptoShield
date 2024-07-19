@@ -12,10 +12,10 @@ const Graph = () => {
         const fetchData = async () => {
             try {
                 // Uncomment and adjust the following line to fetch actual data from the API
-                // const response = await axios.get('/api/historyCoin/tether?interval=day&length=30');
-                const response = testData; // Use testData directly
-                setName(response.data.name);
-                const chartData = response.data.market_chart.map(item => ({
+                const response = await axios.get('/api/historyCoin/tether?interval=day&length=30');
+                // const response = testData; // Use testData directly
+                setName(response.historyCoin1d.data.name);
+                const chartData = response.historyCoin1d.data.market_chart.map(item => ({
                     timestamp: new Date(item.timestamp).toLocaleString(),
                     price: item.price,
                     volume: item.vol_spot_24h
