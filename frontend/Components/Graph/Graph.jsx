@@ -2,6 +2,10 @@ import React, { useEffect, useState } from 'react'; // Import React and hooks (u
 import Plot from 'react-plotly.js'; // Import Plot component from react-plotly.js
 import axios from 'axios'; // Import axios for making HTTP requests
 import testData from './testData.json'; // Import test data (can be removed when using actual data)
+import React, { useEffect, useState } from 'react'; // Import React and hooks (useEffect and useState)
+import Plot from 'react-plotly.js'; // Import Plot component from react-plotly.js
+import axios from 'axios'; // Import axios for making HTTP requests
+import testData from './testData.json'; // Import test data (can be removed when using actual data)
 
 const Graph = ({ coinId }) => { // Define Graph component, accepting coinId as a prop
     const [data, setData] = useState([]); // State to store the data for the combined line and bar chart
@@ -11,20 +15,22 @@ const Graph = ({ coinId }) => { // Define Graph component, accepting coinId as a
 
     // Array of options for the interval and length dropdown menu
     const intervalOptions = [
-        { label: '1 day/hr', interval: 'hour', length: 24 },
-        { label: '5 days/hr', interval: 'hour', length: 120 },
-        { label: '30 days/day', interval: 'day', length: 30 },
-        { label: '90 days/day', interval: 'day', length: 90 },
-        { label: '365 days/day', interval: 'day', length: 365 },
+        { label: '24 hours', interval: 'hour', length: 24 },
+        { label: '5 days', interval: 'hour', length: 120 },
+        { label: '30 days', interval: 'day', length: 30 },
+        { label: '90 days', interval: 'day', length: 90 },
+        { label: '1 year', interval: 'day', length: 365 },
     ];
 
     // useEffect to fetch data whenever coinId or intervalLength changes
     useEffect(() => {
         const fetchData = async () => {
             try {
+                const coinId = 'bitcoin';
+
                 const { interval, length } = intervalLength; // Destructure interval and length from state
-                // const response = await axios.get(`/api/historyCoin/${coinId}?interval=${interval}&length=${length}`);
-                const response = testData; // Uncomment this line to use test data instead
+                const response = await axios.get(`/api/historyCoin/${coinId}?interval=${interval}&length=${length}`);
+                // const response = testData; // Uncomment this line to use test data instead
 
                 setName(response.data.name); // Set the coin name
 

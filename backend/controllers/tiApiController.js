@@ -88,13 +88,14 @@ tiApiController.historyCoinMiddleware = async (req, res, next) => { // rename va
 
   try {
     const response = await axios.request(options);
-    res.locals.historyCoin = response.data.data.market_chart; // update local storage name to reflect we aren't just fetching for 1d
+    response.data.data.market_chart.reverse();
+    res.locals = response.data.data;
     console.log('res.locals: ', res.locals);
     return next();
   }
   catch (error) {
     return next({
-      log: 'Express error handler caught error in historyCoinMiddleware1d',
+      log: 'Express error handler caught error in historyCoinMiddleware',
       status: 500,
       message: { err: 'An error occurred' }
     });
