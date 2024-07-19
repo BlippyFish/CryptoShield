@@ -2,6 +2,38 @@ import React, { useEffect, useState } from 'react'; // Import React and hooks (u
 import Plot from 'react-plotly.js'; // Import Plot component from react-plotly.js
 import axios from 'axios'; // Import axios for making HTTP requests
 import testData from './testData.json'; // Import test data (can be removed when using actual data)
+import styled from 'styled-components'; // Import styled-components for styling
+
+// Styled components
+const Container = styled.div`
+  background-color: #0f1c3f;
+  min-height: 100vh;
+  color: white;
+  padding: 20px;
+  text-align: center;
+`;
+
+const Title = styled.h2`
+  font-size: 2rem;
+  margin-bottom: 20px;
+`;
+
+const Dropdown = styled.select`
+  background-color: #2c3e50;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+`;
+
+const PlotContainer = styled.div`
+  margin: 20px 0;
+`;
+
+const HighLowVolumeContainer = styled.div`
+  margin-top: 20px;
+`;
 
 const Graph = ({ coinId }) => { // Define Graph component, accepting coinId as a prop
     const [data, setData] = useState([]); // State to store the data for the combined line and bar chart
@@ -53,7 +85,7 @@ const Graph = ({ coinId }) => { // Define Graph component, accepting coinId as a
                     type: 'bar', // Type of plot
                     name: 'Volume', // Legend name
                     yaxis: 'y2', // Use the second Y-axis
-                    marker: { color: 'rgba(99, 110, 250, 0.5)' } 
+                    marker: { color: 'rgba(99, 110, 250, 0.5)' } // Adjust color if needed
                 };
 
                 // Create the data for the scatter plot of price vs volume
@@ -89,26 +121,26 @@ const Graph = ({ coinId }) => { // Define Graph component, accepting coinId as a
         const low = Math.min(...prices);
         const volume = volumes.reduce((acc, val) => acc + val, 0);
         return (
-            <div>
+            <HighLowVolumeContainer>
                 <p>High: {high}</p>
                 <p>Low: {low}</p>
                 <p>Volume: {volume}</p>
-            </div>
+            </HighLowVolumeContainer>
         );
     };
 
     return (
-        <div>
-            <h2>{name} Price and Volume</h2> {/* Dynamic title */}
-            <select onChange={handleIntervalChange}> {/* Dropdown for interval/length selection */}
+        <Container>
+            <Title>{name} Price and Volume</Title> {/* Dynamic title */}
+            <Dropdown onChange={handleIntervalChange}> {/* Dropdown for interval/length selection */}
                 {intervalOptions.map(option => (
                     <option key={option.label} value={option.label}>
                         {option.label}
                     </option>
                 ))}
-            </select>
+            </Dropdown>
             {intervalLength.length === 24 && intervalLength.interval === 'hour' ? (
-                <div>
+                <PlotContainer>
                     <Plot
                         data={[data[1]]} // Only plot the price line for 1 day/hour
                         layout={{
@@ -119,44 +151,48 @@ const Graph = ({ coinId }) => { // Define Graph component, accepting coinId as a
                         style={{ width: '100%', height: '400px' }}
                     />
                     {renderHighLowVolume()}
-                </div>
+                </PlotContainer>
             ) : (
-                <div>
-                    <Plot
-                        data={data}
-                        layout={{
-                            title: `${name} Price and Volume`,
-                            xaxis: { title: 'Time' },
-                            yaxis: { title: 'Price', side: 'left' },
-                            yaxis2: {
-                                title: 'Volume',
-                                overlaying: 'y',
-                                side: 'right',
-                                showgrid: false,
-                                zeroline: false,
-                                showline: false,
-                                ticks: '',
-                                tickfont: { color: 'rgba(0,0,0,0)' },
-                                rangemode: 'tozero',
-                                range: [0, Math.max(...data[0]?.y || []) * 2] // Double the max value of volume
-                            },
-                            barmode: 'group'
-                        }}
-                        style={{ width: '100%', height: '400px' }}
-                    />
-                    <h2>{name} Price vs Volume</h2>
-                    <Plot
-                        data={scatterData}
-                        layout={{
-                            title: `${name} Price vs Volume`,
-                            xaxis: { title: 'Price' },
-                            yaxis: { title: 'Volume' }
-                        }}
-                        style={{ width: '100%', height: '400px' }}
-                    />
-                </div>
+                <>
+                    <PlotContainer>
+                        <Plot
+                            data={data}
+                            layout={{
+                                title: `${name} Price and Volume`,
+                                xaxis: { title: 'Time' },
+                                yaxis: { title: 'Price', side: 'left' },
+                                yaxis2: {
+                                    title: 'Volume',
+                                    overlaying: 'y',
+                                    side: 'right',
+                                    showgrid: false,
+                                    zeroline: false,
+                                    showline: false,
+                                    ticks: '',
+                                    tickfont: { color: 'rgba(0,0,0,0)' },
+                                    rangemode: 'tozero',
+                                    range: [0, Math.max(...data[0]?.y || []) * 2] // Double the max value of volume
+                                },
+                                barmode: 'group'
+                            }}
+                            style={{ width: '100%', height: '400px' }}
+                        />
+                    </PlotContainer>
+                    <PlotContainer>
+                        <h2>{name} Price vs Volume</h2>
+                        <Plot
+                            data={scatterData}
+                            layout={{
+                                title: `${name} Price vs Volume`,
+                                xaxis: { title: 'Price' },
+                                yaxis: { title: 'Volume' }
+                            }}
+                            style={{ width: '100%', height: '400px' }}
+                        />
+                    </PlotContainer>
+                </>
             )}
-        </div>
+        </Container>
     );
 };
 
