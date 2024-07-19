@@ -53,7 +53,7 @@ const Graph = ({ coinId }) => { // Define Graph component, accepting coinId as a
                     type: 'bar', // Type of plot
                     name: 'Volume', // Legend name
                     yaxis: 'y2', // Use the second Y-axis
-                    marker: { color: 'rgba(99, 110, 250, 0.5)' } // Adjust color if needed
+                    marker: { color: 'rgba(99, 110, 250, 0.5)' } 
                 };
 
                 // Create the data for the scatter plot of price vs volume
@@ -99,7 +99,7 @@ const Graph = ({ coinId }) => { // Define Graph component, accepting coinId as a
 
     return (
         <div>
-            <h2>{name} Price and Volume Over Time</h2> {/* Dynamic title */}
+            <h2>{name} Price and Volume</h2> {/* Dynamic title */}
             <select onChange={handleIntervalChange}> {/* Dropdown for interval/length selection */}
                 {intervalOptions.map(option => (
                     <option key={option.label} value={option.label}>
@@ -125,7 +125,7 @@ const Graph = ({ coinId }) => { // Define Graph component, accepting coinId as a
                     <Plot
                         data={data}
                         layout={{
-                            title: `${name} Price and Volume Over Time`,
+                            title: `${name} Price and Volume`,
                             xaxis: { title: 'Time' },
                             yaxis: { title: 'Price', side: 'left' },
                             yaxis2: {
@@ -144,11 +144,11 @@ const Graph = ({ coinId }) => { // Define Graph component, accepting coinId as a
                         }}
                         style={{ width: '100%', height: '400px' }}
                     />
-                    <h2>Scatter Plot of {name} Price vs Volume</h2>
+                    <h2>{name} Price vs Volume</h2>
                     <Plot
                         data={scatterData}
                         layout={{
-                            title: `Scatter Plot of ${name} Price vs Volume`,
+                            title: `${name} Price vs Volume`,
                             xaxis: { title: 'Price' },
                             yaxis: { title: 'Volume' }
                         }}
