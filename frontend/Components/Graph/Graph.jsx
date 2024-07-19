@@ -2,10 +2,6 @@ import React, { useEffect, useState } from 'react'; // Import React and hooks (u
 import Plot from 'react-plotly.js'; // Import Plot component from react-plotly.js
 import axios from 'axios'; // Import axios for making HTTP requests
 import testData from './testData.json'; // Import test data (can be removed when using actual data)
-import React, { useEffect, useState } from 'react'; // Import React and hooks (useEffect and useState)
-import Plot from 'react-plotly.js'; // Import Plot component from react-plotly.js
-import axios from 'axios'; // Import axios for making HTTP requests
-import testData from './testData.json'; // Import test data (can be removed when using actual data)
 
 const Graph = ({ coinId }) => { // Define Graph component, accepting coinId as a prop
     const [data, setData] = useState([]); // State to store the data for the combined line and bar chart
@@ -26,8 +22,7 @@ const Graph = ({ coinId }) => { // Define Graph component, accepting coinId as a
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const coinId = 'bitcoin';
-
+                const coinId = `bitcoin`
                 const { interval, length } = intervalLength; // Destructure interval and length from state
                 const response = await axios.get(`/api/historyCoin/${coinId}?interval=${interval}&length=${length}`);
                 // const response = testData; // Uncomment this line to use test data instead
@@ -57,7 +52,8 @@ const Graph = ({ coinId }) => { // Define Graph component, accepting coinId as a
                     y: chartData.map(item => item.volume), // Y-axis data (volumes)
                     type: 'bar', // Type of plot
                     name: 'Volume', // Legend name
-                    yaxis: 'y2' // Use the second Y-axis
+                    yaxis: 'y2', // Use the second Y-axis
+                    marker: { color: 'rgba(99, 110, 250, 0.5)' } // Adjust color if needed
                 };
 
                 // Create the data for the scatter plot of price vs volume
@@ -69,7 +65,7 @@ const Graph = ({ coinId }) => { // Define Graph component, accepting coinId as a
                     name: 'Price vs Volume' // Legend name
                 };
 
-                setData([volume, priceVolume]); // Set the data for the line and bar chart
+                setData([volume, priceVolume]); // Set the volume first and price line second to render price line over volume bars
                 setScatterData([scatter]); // Set the data for the scatter plot
             } catch (error) {
                 console.error('Error fetching data', error); // Log any errors
@@ -86,8 +82,8 @@ const Graph = ({ coinId }) => { // Define Graph component, accepting coinId as a
 
     // Render high, low, and volume for 1 day/hour chart
     const renderHighLowVolume = () => {
-        const prices = data[0]?.y;
-        const volumes = data[1]?.y;
+        const prices = data[1]?.y; // Update to get prices from the priceVolume data
+        const volumes = data[0]?.y; // Update to get volumes from the volume data
         if (!prices || !volumes) return null;
         const high = Math.max(...prices);
         const low = Math.min(...prices);
@@ -114,7 +110,7 @@ const Graph = ({ coinId }) => { // Define Graph component, accepting coinId as a
             {intervalLength.length === 24 && intervalLength.interval === 'hour' ? (
                 <div>
                     <Plot
-                        data={[data[0]]} // Only plot the price line for 1 day/hour
+                        data={[data[1]]} // Only plot the price line for 1 day/hour
                         layout={{
                             title: `${name} Price Over Time (1 day/hr)`,
                             xaxis: { title: 'Time' },
@@ -140,7 +136,9 @@ const Graph = ({ coinId }) => { // Define Graph component, accepting coinId as a
                                 zeroline: false,
                                 showline: false,
                                 ticks: '',
-                                tickfont: { color: 'rgba(0,0,0,0)' }
+                                tickfont: { color: 'rgba(0,0,0,0)' },
+                                rangemode: 'tozero',
+                                range: [0, Math.max(...data[0]?.y || []) * 2] // Double the max value of volume
                             },
                             barmode: 'group'
                         }}
