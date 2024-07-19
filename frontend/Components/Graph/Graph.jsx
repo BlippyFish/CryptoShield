@@ -11,11 +11,11 @@ const Graph = ({ coinId }) => { // Define Graph component, accepting coinId as a
 
     // Array of options for the interval and length dropdown menu
     const intervalOptions = [
-        { label: '1 day/hr', interval: 'hour', length: 24 },
-        { label: '5 days/hr', interval: 'hour', length: 120 },
-        { label: '30 days/day', interval: 'day', length: 30 },
-        { label: '90 days/day', interval: 'day', length: 90 },
-        { label: '365 days/day', interval: 'day', length: 365 },
+        { label: '24 hours', interval: 'hour', length: 24 },
+        { label: '5 days', interval: 'hour', length: 120 },
+        { label: '30 days', interval: 'day', length: 30 },
+        { label: '90 days', interval: 'day', length: 90 },
+        { label: '365 days', interval: 'day', length: 365 },
     ];
 
     // useEffect to fetch data whenever coinId or intervalLength changes
