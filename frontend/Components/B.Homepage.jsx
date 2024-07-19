@@ -23,7 +23,7 @@ background-color: #2c3e50;
 padding: 10px 20px;
 border-radius: 25px;
 width: 400px;
-margin: 25px;
+margin: 35px;
 margin-left: 525px;
 `;
 
@@ -39,6 +39,8 @@ font-size: 1rem;
 background-color: transparent;
 color: white;
 `;
+
+
 
 const SearchIcon = styled.div`
 font-size: 1.5rem;
@@ -78,7 +80,7 @@ const HomePage = () => {
                     // if (Array.isArray(newArr)) {
                     //     console.log("Inside Array.isArray")
                     setCryptoData(newArr);
-                    setFilteredData(newArr);
+                    //setFilteredData(newArr);
                     //}
                     // console.log("cryptoData: ", cryptoData);
                     //console.log("Trying to get rank: ", cryptoData.indexOf("ethereum"))
@@ -101,15 +103,27 @@ const HomePage = () => {
 
 
     // })
-
+    const colors = [
+        {
+            value: 'blue',
+            label: 'Blue'
+        },
+        {
+            value: 'red',
+            label: 'Red'
+        }
+    ]
     useEffect(() => {
         //console.log("cryptoData: ", cryptoData)
-        console.log("searchTerm: ", searchTerm)
-        const filtered = cryptoData.filter((crypto) =>
-            crypto.name.toLowerCase().includes(searchTerm.toLowerCase())
-        );
-        console.log("filtered: ", filtered)
-        setFilteredData(filtered);
+        //console.log("searchTerm: ", searchTerm)
+        // const filtered = cryptoData.filter((crypto) =>
+        //     crypto.name.toLowerCase().includes(searchTerm.toLowerCase())
+        // );
+        //console.log("filtered: ", filteredData)
+        let options = cryptoData.map(function (coin) {
+            return { value: coin.name, label: coin.name };
+          })
+        setFilteredData(options);
     }, [searchTerm, cryptoData]);
 
     if (loading) {
@@ -119,6 +133,8 @@ const HomePage = () => {
     if (error) {
         return <div>Error: {error.message}</div>;
     }
+
+    
 
     return (
         <Container>
@@ -137,21 +153,18 @@ const HomePage = () => {
             </CardContainer>
 
             <SearchBarContainer>
-                {/* <SearchBar
-                    type="text"
-                    placeholder="Search"
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                /> */}
+                <div style={{width: '100%'}}>
                 <Select
-                unstyled='true'
                 menuPlacement='auto'
-                menuPosition='absolute'
                 placeholder="Search"
                 options = {filteredData}
-                value = {filteredData}
-                onChange={(e) => setSearchTerm(e.target.value)} />
-                <SearchIcon>🔍</SearchIcon>
+                value = {searchTerm}
+                labelKey = 'name'
+                valueKey = 'name'
+                color = 'black'
+                onChange={(e) => setSearchTerm(e.target.value)} 
+                />
+                </div>
             </SearchBarContainer>
         </Container>
     );
