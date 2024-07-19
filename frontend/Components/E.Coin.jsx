@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import Graph from './Graph/Graph'; // Import the Graph component
-
+import Graph from './G.Graph.jsx';
 
 const Container = styled.div`
   display: flex;

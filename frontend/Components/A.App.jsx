@@ -4,8 +4,7 @@ import Homepage from './B.Homepage';
 import PreviewCard from './C.PreviewCard';
 import CoinPage from './D.CoinPage';
 import Coin from './E.Coin';
-import Graph from './Graph/Graph';
-
+import Graph from './G.Graph.jsx';
 const App = () => {
     return (
         <div>
