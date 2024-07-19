@@ -16,7 +16,7 @@ router.get('/completeCoin/:id', tiApiController.completeCoinMiddleware, (req, re
   return res.status(200).json(res.locals);
 });
 
-router.get('/historyCoin/:id', tiApiController.historyCoinMiddleware, (req, res) => {
+router.get('/historyCoin/:id', tiApiController.historyCoinMiddleware, (req, res) => { // Updated to use dynamic middleware
   return res.status(200).json(res.locals);
 });
 
