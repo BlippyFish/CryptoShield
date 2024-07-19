@@ -1,10 +1,10 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Homepage from './B.Homepage';
-// import CoinPage from './D.CoinPage';
-import Graph from './Graph/Graph';
 import PreviewCard from './C.PreviewCard';
 import CoinPage from './D.CoinPage';
+import Coin from './E.Coin';
+import Graph from './Graph/Graph';
 
 const App = () => {
     return (
