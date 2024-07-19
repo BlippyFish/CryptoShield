@@ -28,6 +28,7 @@
     "react-router": "^6.24.1",
     "react-router-dom": "^6.24.1",
     "react-scripts": "^5.0.1",
+    "react-select": "^5.8.0",
     "recharts": "^2.12.7",
     "redux": "^5.0.1",
     "styled-components": "^6.1.11",
