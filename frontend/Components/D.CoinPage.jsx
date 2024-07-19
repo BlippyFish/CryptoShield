@@ -36,6 +36,7 @@ const CoinPage = () => {
                     const data = await response.json();
                     const newArr = data.completeCoin.data;
                     setCryptoData(newArr).toLocaleString('en-US');
+                    console.log(newArr.market_data.price[0].price_latest);
                     // setFilteredData(newArr);
                 } else {
                     throw new Error(`Error: ${response.status}`);
@@ -72,28 +73,26 @@ const CoinPage = () => {
     // }, []);
 
 
-
-
     return (
 
         <Container>
             <Content>
                 <Coin
                     key={coinId}
-                    id={coinId}
+                    coinId={coinId}
                     name={cryptoData.name}
-                    price={cryptoData.price}
-                    rank={cryptoData.whereToFindTheRank}
-                    rating={cryptoData.rating_score}
+                    price={cryptoData.market_data.price[0].price_latest}
                     symbol={cryptoData.symbol}
                     logo={cryptoData.logo}
-                    volume={cryptoData.volume}
-                    percentChange24H={cryptoData.percentChange24H}
-                    marketCap={cryptoData.marketCap}
-                    circulatingSupply={cryptoData.circulatingSupply}
-                    totalSupply={cryptoData.totalSupply}
-                    low={cryptoData.low}
-                    high={cryptoData.high}
+                    volume={cryptoData.market_data.price[0].vol_spot_24h}
+                    percentChange24H={cryptoData.market_data.price[0].price_change_percentage_24h}
+                    rank={cryptoData.rank}
+                    rating={cryptoData.rating.rating}
+                    marketCap={cryptoData.market_data.price[0].market_cap}
+                    circulatingSupply={cryptoData.market_data.circulating_supply}
+                    totalSupply={cryptoData.market_data.max_supply}
+                    low={cryptoData.market_data.price[0].low_24h}
+                    high={cryptoData.market_data.price[0].high_24h}
                 // need to add more data points
                 />
             </Content>

@@ -77,7 +77,7 @@ const NewsText = styled.div`
 `;
 
 
-const Coin = ({ name, price, symbol, logo, volume, percentChange24H, rank, rating, marketCap, circulatingSupply, totalSupply, low, high }) => {
+const Coin = ({ coinId, name, price, symbol, logo, volume, percentChange24H, rank, rating, marketCap, circulatingSupply, totalSupply, low, high }) => {
 
   const [cryptoData, setCryptoData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
@@ -85,20 +85,20 @@ const Coin = ({ name, price, symbol, logo, volume, percentChange24H, rank, ratin
   return (
     <Container>
       <GraphContainer>
-        <Graph coinId={symbol} /> {/* Pass the coin symbol to the Graph component */}
+        <Graph coinId={coinId} /> {/* Pass the coinId to the Graph component */}
       </GraphContainer>
       <Sidebar>
-        <CoinName>Bitcoin</CoinName>
+        <CoinName>{name}</CoinName>
         <BuyButton type="button"><b>Buy</b></BuyButton>
         <Price>{`${'$' + price.toLocaleString('en-US')}`}</Price>
         <CoinDetail>Rank: {rank}</CoinDetail>
-        <CoinDetail>Rating: </CoinDetail>
-        <CoinDetail>Market Cap: </CoinDetail>
-        <CoinDetail>24H Volume: </CoinDetail>
-        <CoinDetail>Circulating Supply: </CoinDetail>
-        <CoinDetail>Total Supply: </CoinDetail>
-        <CoinDetail>24H Low: </CoinDetail>
-        <CoinDetail>24H High: </CoinDetail>
+        <CoinDetail>Rating: {rating}</CoinDetail>
+        <CoinDetail>Market Cap: {marketCap}</CoinDetail>
+        <CoinDetail>24H Volume: {volume}</CoinDetail>
+        <CoinDetail>Circulating Supply: {circulatingSupply}</CoinDetail>
+        <CoinDetail>Total Supply: {totalSupply}</CoinDetail>
+        <CoinDetail>24H Low: {low}</CoinDetail>
+        <CoinDetail>24H High: {high}</CoinDetail>
         <NewsCard>
           <NewsImage src="https://via.placeholder.com/50" alt="news" />
           <NewsText>
