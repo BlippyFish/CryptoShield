@@ -17,10 +17,19 @@ const Content = styled.div`
   border-radius: 10px;
 `;
 
-const CoinPage = () => {
+/*
+
+Rank = index
+Rating = rating
+Market Cap = market_cap
+Circulating Supply = circulating_supply
+Total Supply = max_supply
+
+*/
+
+const CoinPage = ({ rating, market_cap, circulating_supply, max_supply }) => {
 
     const [cryptoData, setCryptoData] = useState([]);
-    const [moreCryptoData, setMoreCryptoData] = useState([]);
     const [error, setError] = useState(null);
 
 
@@ -33,8 +42,7 @@ const CoinPage = () => {
                 if (response.ok) {
                     const data = await response.json();
                     const newArr = data.coinList.data.items;
-                    setCryptoData(newArr).toLocaleString('en-US');
-                    setFilteredData(newArr);
+                    setCryptoData(newArr);
                 } else {
                     throw new Error(`Error: ${response.status}`);
                 }
@@ -45,30 +53,8 @@ const CoinPage = () => {
         };
 
         fetchData();
+
     }, []);
-
-    useEffect(() => {
-        const fetchMoreData = async () => {
-            try {
-                const response = await fetch('/api/ratings', {
-                    method: "GET"
-                });
-                if (response.ok) {
-                    const data = await response.json();
-                    const moreDataArr = data.data.items;
-                    setMoreCryptoData(moreDataArr);
-                } else {
-                    throw new Error(`Error: ${response.status}`);
-                }
-            } catch (error) {
-                // console.error("Fetch Error:", error);
-                setError(error.message);
-            }
-        };
-
-        fetchMoreData();
-    }, []);
-
 
 
 
@@ -80,11 +66,10 @@ const CoinPage = () => {
                     <Coin
                         key={index}
                         name={crypto.name}
-                        price={crypto.price}
-                        rank={cryptoData.indexOf(crypto)}
+                        price={crypto.price.toLocaleString('en-US')}
                         rating={crypto.rating_score}
+                        rank={cryptoData.indexOf(crypto) + 1}
                     // need to add more data points
-
                     />
                 ))}
             </Content>

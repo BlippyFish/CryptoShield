@@ -103,16 +103,16 @@ const HomePage = () => {
 
 
     // })
-    const colors = [
-        {
-            value: 'blue',
-            label: 'Blue'
-        },
-        {
-            value: 'red',
-            label: 'Red'
-        }
-    ]
+    // const colors = [
+    //     {
+    //         value: 'blue',
+    //         label: 'Blue'
+    //     },
+    //     {
+    //         value: 'red',
+    //         label: 'Red'
+    //     }
+    // ]
     useEffect(() => {
         //console.log("cryptoData: ", cryptoData)
         //console.log("searchTerm: ", searchTerm)
