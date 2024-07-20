@@ -12,7 +12,8 @@ const App = () => {
                 <Routes>
                     <Route path="/" element={<Homepage />} />
                     <Route path="/graph" element={<Graph />} />
-                    <Route path="/coinpage" element={<CoinPage />} />
+                    {/* Modify the route to accept coinId as a URL parameter */}
+                    <Route path="/coinpage/:coinId" element={<CoinPage />} />
                 </Routes>
             </Router>
         </div>

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 import PreviewCard from './C.PreviewCard';
 import Select from 'react-select';
 
@@ -60,6 +61,8 @@ const HomePage = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [searchTerm, setSearchTerm] = useState('');
+    const navigate = useNavigate(); // Added navigate hook for navigation
+
 
     useEffect(() => {
         const fetchData = async () => {
@@ -96,12 +99,6 @@ const HomePage = () => {
         fetchData();
     }, []);
 
-    // useEffect(() => {
-
-
-
-    // })
-
     useEffect(() => {
         //console.log("cryptoData: ", cryptoData)
         console.log("searchTerm: ", searchTerm)
@@ -116,9 +113,7 @@ const HomePage = () => {
         return <div>Loading...</div>;
     }
 
-    // if (error) {
-    //     return <div>Error: {error.message}</div>;
-    // }
+  
 
     return (
         <Container>
@@ -132,6 +127,8 @@ const HomePage = () => {
                         price={crypto.price}
                         logo={crypto.logo}
                         rank={index + 1}
+                        symbol={crypto.symbol} // Added symbol prop
+                        onClick={() => navigate(`/coinpage/${crypto.symbol}`)} // Added navigation on click
                     />
                 ))}
             </CardContainer>

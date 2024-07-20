@@ -56,7 +56,7 @@ const Graph = ({ coinId }) => { // Define Graph component, accepting coinId as a
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const coinId = `bitcoin`
+                // const coinId = `bitcoin`
                 const { interval, length } = intervalLength; // Destructure interval and length from state
 
                 // Determine the length for 'ytd' option

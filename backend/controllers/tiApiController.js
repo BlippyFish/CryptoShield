@@ -16,6 +16,7 @@ tiApiController.coinListMiddleware = async (req, res, next) => {
     console.log('res.locals: ', res.locals);
     return next();
   } catch (error) {
+    console.error('Error fetching coin list:', error.response ? error.response.data : error.message);
     return next({
       log: 'Express error handler caught error in coinListMiddleware',
       status: 500,
@@ -38,6 +39,7 @@ tiApiController.ratingListMiddleware = async (req, res, next) => {
     console.log('res.locals: ', res.locals);
     return next();
   } catch (error) {
+    console.error('Error fetching rating list:', error.response ? error.response.data : error.message);
     return next({
       log: 'Express error handler caught error in ratingListMiddleware',
       status: 500,
@@ -66,10 +68,11 @@ tiApiController.completeCoinMiddleware = async (req, res, next) => {
     console.log('res.locals: ', res.locals);
     return next();
   } catch (error) {
+    console.error(`Error fetching complete data for coin ${id}:`, error.response ? error.response.data : error.message);
     return next({
       log: 'Express error handler caught error in completeCoinMiddleware',
       status: 500,
-      message: { err: 'An error occurred' }
+      message: { err: error.response ? error.response.data : error.message }
     });
   }
 };
@@ -94,13 +97,13 @@ tiApiController.historyCoinMiddleware = async (req, res, next) => { // rename va
     return next();
   }
   catch (error) {
+    console.error(`Error fetching historical data for coin ${id}:`, error.response ? error.response.data : error.message);
     return next({
       log: 'Express error handler caught error in historyCoinMiddleware',
       status: 500,
       message: { err: 'An error occurred' }
     });
   }
-
 };
 
 module.exports = tiApiController;

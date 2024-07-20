@@ -13,7 +13,7 @@ router.get('/ratings', tiApiController.ratingListMiddleware, (req, res) => {
 });
 
 router.get('/completeCoin/:id', tiApiController.completeCoinMiddleware, (req, res) => {
-  return res.status(200).json(res.locals);
+  return res.status(200).json(res.locals.completeCoin);
 });
 
 router.get('/historyCoin/:id', tiApiController.historyCoinMiddleware, (req, res) => { // Updated to use dynamic middleware

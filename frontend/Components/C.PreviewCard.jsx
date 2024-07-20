@@ -56,11 +56,11 @@ const Rank = styled.div`
   margin: 10px 0;
 `;
 
-const PreviewCard = ({ name, price, symbol, logo, rank }) => {
+const PreviewCard = ({ name, price, symbol, logo, rank, onClick }) => { // Added onClick prop
   const [checked, setChecked] = useState(false);
 
   const handleClick = () => {
-    // We can't fully build this out yet
+    onClick(); // Trigger navigation when card is clicked
   };
 
   const handleSelect = (event) => {
@@ -81,6 +81,5 @@ const PreviewCard = ({ name, price, symbol, logo, rank }) => {
     </CardStyle>
   );
 };
-
 
 export default PreviewCard;
