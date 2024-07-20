@@ -6,7 +6,7 @@ import Select from 'react-select';
 const Container = styled.div`
 background-color: #0f1c3f;
 color: white;
-padding: 12px;
+padding: 200px;
 text-align: center;
 `;
 
@@ -43,46 +43,6 @@ const handleClick = (name) => {
     // We can't fully build this out yet
 };
 
-// Styling for Select menu dropdown -- don't touch
-const customStyles = {
-    control: (provided) => ({
-        ...provided,
-        borderRadius: '10px',
-        borderColor: '#ccc',
-        boxShadow: 'none',
-        '&:hover': {
-            borderColor: '#888',
-        },
-        height: '50px',
-        minHeight: '50px',
-        backgroundColor: '#f0f0f0',
-        width: '500px',
-    }),
-    input: (provided) => ({
-        ...provided,
-        color: '#333',
-    }),
-    placeholder: (provided) => ({
-        ...provided,
-        color: '#999',
-        textAlign: 'left',
-    }),
-    singleValue: (provided) => ({
-        ...provided,
-        color: '#333',
-    }),
-    menu: (provided) => ({
-        ...provided,
-        backgroundColor: '#fff',
-    }),
-    option: (provided, state) => ({
-        ...provided,
-        backgroundColor: state.isSelected ? '#ccc' : state.isFocused ? '#e0e0e0' : '#fff',
-        color: '#333',
-    }),
-};
-
-
 const HomePage = () => {
 
     const [cryptoData, setCryptoData] = useState([]);
@@ -94,29 +54,18 @@ const HomePage = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                // console.log("Inside fetchData")
                 const response = await fetch('/api/coins', {
                     method: "GET"
                 });
                 if (response.ok) {
-                    // console.log("Inside if response ok")
                     const data = await response.json();
-                    //console.log("data: ", data);
-                    //console.log("trying to access items list:", data.coinList.data.items)
+                    console.log("data: ", data)
                     const newArr = data.coinList.data.items;
-                    //console.log("newArr: ", newArr)
-                    // if (Array.isArray(newArr)) {
-                    //     console.log("Inside Array.isArray")
                     setCryptoData(newArr);
-                    //setFilteredData(newArr);
-                    //}
-                    // console.log("cryptoData: ", cryptoData);
-                    //console.log("Trying to get rank: ", cryptoData.indexOf("ethereum"))
                 } else {
                     throw new Error(`Error: ${response.status}`);
                 }
             } catch (error) {
-                // console.error("Fetch Error:", error);
                 setError(error.message);
             } finally {
                 setLoading(false);
@@ -126,28 +75,8 @@ const HomePage = () => {
         fetchData();
     }, []);
 
-    // useEffect(() => {
-
-
-
-    // })
-    // const colors = [
-    //     {
-    //         value: 'blue',
-    //         label: 'Blue'
-    //     },
-    //     {
-    //         value: 'red',
-    //         label: 'Red'
-    //     }
-    // ]
     useEffect(() => {
-        //console.log("cryptoData: ", cryptoData)
-        //console.log("searchTerm: ", searchTerm)
-        // const filtered = cryptoData.filter((crypto) =>
-        //     crypto.name.toLowerCase().includes(searchTerm.toLowerCase())
-        // );
-        //console.log("filtered: ", filteredData)
+        //format the API response for react-select
         let options = cryptoData.map(function (coin) {
             return { value: coin.name, label: coin.name };
         })
@@ -172,13 +101,14 @@ const HomePage = () => {
             <Title>CryptoShield</Title>
 
             <CardContainer>
-                {cryptoData.slice(0, 6).map((crypto, index) => (
+                {cryptoData.map((crypto, index) => (
                     <PreviewCard
                         key={index}
                         name={crypto.name}
                         price={crypto.price}
                         logo={crypto.logo}
                         rank={index + 1}
+
                     />
                 ))}
             </CardContainer>
@@ -202,9 +132,9 @@ const HomePage = () => {
                         //onChange={(e) => setSearchTerm(e.target.value)} 
                         onChange={(e) => handleClick(e.value)}
                     />
+
                 </div>
             </SearchBarContainer>
-            Col
         </Container>
     );
 };
