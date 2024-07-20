@@ -62,12 +62,10 @@ const Rank = styled.div`
   margin-right: 15px;
 `;
 
-const PreviewCard = ({ name, price, symbol, logo, rank }) => {
+const PreviewCard = ({ name, price, symbol, logo, rank }) => { // Added onClick prop
   const [checked, setChecked] = useState(false);
 
-  const handleClick = () => {
-    // We can't fully build this out yet
-  };
+  
 
   const handleSelect = (event) => {
     event.stopPropagation(); //allows click on select btn w/o triggering whole card click
@@ -75,7 +73,7 @@ const PreviewCard = ({ name, price, symbol, logo, rank }) => {
   };
 
   return (
-    <CardStyle className='previewCard' onClick={handleClick}>
+    <CardStyle className='previewCard'>
       <Header>
         {/* <CheckBoxStyle type="checkbox" checked={checked} onChange={handleSelect} />
         <CompareText>Compare</CompareText> */}
@@ -89,6 +87,5 @@ const PreviewCard = ({ name, price, symbol, logo, rank }) => {
     </CardStyle>
   );
 };
-
 
 export default PreviewCard;

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import Graph from './G.Graph.jsx';
 
 const Container = styled.div`
   display: flex;
@@ -9,7 +10,7 @@ const Container = styled.div`
   padding: 20px;
 `;
 
-const Graph = styled.section`
+const GraphContainer = styled.section` //changed variable name to avoid confusion with Graph component
   width: 60%;
   margin: 10px;
   display: flex;
@@ -75,25 +76,28 @@ const NewsText = styled.div`
 `;
 
 
-const Coin = ({ name, price, symbol, logo, volume, percentChange24H, rank, rating_score, marketCap, circulatingSupply, totalSupply, low, high }) => {
+const Coin = ({ coinId, name, price, symbol, logo, volume, percentChange24H, rank, rating, marketCap, circulatingSupply, totalSupply, low, high }) => {
 
   const [coinsData, setCoinsData] = useState([]);
   const [ratingsData, setRatingsData] = useState([]);
 
   return (
     <Container>
-      <Graph>
-        <div>Graph Placeholder</div>
-      </Graph>
+      <GraphContainer>
+        <Graph coinId={coinId} /> {/* Pass the coinId to the Graph component */}
+      </GraphContainer>
       <Sidebar>
         <CoinName>{name}</CoinName>
         <BuyButton type="button"><b>Buy</b></BuyButton>
-        <Price>{`${'$' + price}`}</Price>
-        <CoinDetail>Rank: #{rank}</CoinDetail>
-        <CoinDetail>Rating: {rating_score}</CoinDetail>
-        <CoinDetail>Market Cap: </CoinDetail>
-        <CoinDetail>Circulating Supply: </CoinDetail>
-        <CoinDetail>Total Supply: </CoinDetail>
+        <Price>{`${'$' + price.toLocaleString('en-US')}`}</Price>
+        <CoinDetail>Rank: {rank}</CoinDetail>
+        <CoinDetail>Rating: {rating}</CoinDetail>
+        <CoinDetail>Market Cap: {marketCap}</CoinDetail>
+        <CoinDetail>24H Volume: {volume}</CoinDetail>
+        <CoinDetail>Circulating Supply: {circulatingSupply}</CoinDetail>
+        <CoinDetail>Total Supply: {totalSupply}</CoinDetail>
+        <CoinDetail>24H Low: {low}</CoinDetail>
+        <CoinDetail>24H High: {high}</CoinDetail>
         <NewsCard>
           <NewsImage src="https://via.placeholder.com/50" alt="news" />
           <NewsText>

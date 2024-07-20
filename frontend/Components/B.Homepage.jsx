@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import PreviewCard from './C.PreviewCard';
 import Select from 'react-select';
 
@@ -50,6 +51,7 @@ const HomePage = () => {
     const [error, setError] = useState(null);
     const [searchTerm, setSearchTerm] = useState('');
 
+
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -86,9 +88,7 @@ const HomePage = () => {
         return <div>Loading...</div>;
     }
 
-    if (error) {
-        return <div>Error: {error.message}</div>;
-    }
+  
 
     
 
@@ -97,17 +97,18 @@ const HomePage = () => {
             <Title>CryptoShield</Title>
 
             <CardContainer>
-                {cryptoData.map((crypto, index) => (
-                    <PreviewCard
-                        key={index}
-                        name={crypto.name}
-                        price={crypto.price}
-                        logo={crypto.logo}
-                        rank={index + 1}
-                        
-                    />
-                ))}
-            </CardContainer>
+        {cryptoData.map((crypto, index) => (
+          <Link key={index} to={`/coinpage/${crypto.id}`} style={{ textDecoration: 'none' }}>
+            <PreviewCard
+              name={crypto.name}
+              price={crypto.price}
+              logo={crypto.logo}
+              rank={index + 1}
+              symbol={crypto.symbol}
+            />
+          </Link>
+        ))}
+      </CardContainer>
 
             <SearchBarContainer>
                 <div style={{width: '100%'}}>
