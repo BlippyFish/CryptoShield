@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { useParams } from 'react-router-dom';
 import Coin from './E.Coin';
 import { useParams } from 'react-router-dom'; //new import
 
@@ -37,21 +36,23 @@ const CoinPage = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            try {
-                const response = await fetch('/api/completeCoin/${coinId}', {
-                    method: "GET"
-                });
-                if (response.ok) {
-                    const data = await response.json();
-                    const newArr = data.coinList.data.items;
-                    setCryptoData(newArr);
-                } else {
-                    // throw new Error('Error:', ${ response.status });
-                }
-            } catch (error) {
-                // console.error("Fetch Error:", error);
-                setError(error.message);
+          try {
+            console.log(`Fetching data for coinId: ${coinId}`);
+            const response = await fetch(`/api/completeCoin/${coinId}`, {
+              method: "GET"
+            });
+            if (!response.ok) {
+              throw new Error(`Error: ${response.status}`);
             }
+            const data = await response.json();
+            const newArr = data.data;
+            console.log('Fetched data:', newArr);
+            setCryptoData(newArr);
+            console.log("trying to access Market_data: ", newArr.market_data)
+          } catch (error) {
+            console.error("Fetch Error:", error);
+            setError(error.message);
+          }
         };
    
         fetchData();
@@ -102,24 +103,28 @@ const CoinPage = () => {
      }
      const priceData = marketData.price[0];
     return (
+
+//priceData.price_latest ? `${Number(priceData.price_latest).toLocaleString('en-US')}` : `N/A`
+
+
         <Container>
             <Content>
                 <Coin
-                    key={cryptoData.id}
-                    coinId={cryptoData.id}
-                    name={cryptoData.name}
-                    price={`${Number(priceData.price_latest.toFixed(2)).toLocaleString('en-US')}`}
-                    symbol={cryptoData.symbol}
-                    logo={cryptoData.logo}
-                    volume={`$${Number(priceData.vol_spot_24h.toFixed(2)).toLocaleString('en-US')}`}
-                    percentChange24H={priceData.price_change_percentage_24h}
-                    rank={`#${cryptoData.rank}`}
+                    key={cryptoData.id ? cryptoData.id : `N/A`}
+                    coinId={cryptoData.id ? cryptoData.id : `N/A`}
+                    name={cryptoData.name ? cryptoData.name : `N/A`}
+                    price={priceData.price_latest ? `${Number(priceData.price_latest).toLocaleString('en-US')}` : `N/A`}
+                    symbol={cryptoData.symbol ? cryptoData.symbol : `N/A`}
+                    logo={cryptoData.logo ? cryptoData.logo : `N/A`}
+                    volume={priceData.vol_spot_24h ? `$${Number(priceData.vol_spot_24h).toLocaleString('en-US')}` : `N/A`}
+                    percentChange24H={priceData.price_change_percentage_24h ? priceData.price_change_percentage_24h : `N/A`}
+                    rank={cryptoData.rank ? `#${cryptoData.rank}` : `N/A`}
                     rating={cryptoData.rating ? cryptoData.rating.rating : 'N/A'}
-                    marketCap={`$${Number(priceData.market_cap.toFixed(2)).toLocaleString('en-US')}`}
-                    circulatingSupply={`${Number(marketData.circulating_supply.toFixed(2)).toLocaleString('en-US')}`}
-                    totalSupply={`${Number(marketData.max_supply.toFixed(2)).toLocaleString('en-US')}`}
-                    low={`${Number(priceData.low_24h.toFixed(2)).toLocaleString('en-US')}`}
-                    high={`${Number(priceData.high_24h.toFixed(2)).toLocaleString('en-US')}`}
+                    marketCap={priceData.market_cap ? `$${Number(priceData.market_cap).toLocaleString('en-US')}` : `N/A`}
+                    circulatingSupply={marketData.circulating_supply ? `${Number(marketData.circulating_supply).toLocaleString('en-US')}` : `N/A`}
+                    totalSupply={marketData.max_supply ? `${Number(marketData.max_supply).toLocaleString('en-US')}` : `N/A`}
+                    low={priceData.low_24h ? `$${Number(priceData.low_24h).toLocaleString('en-US')}` : `N/A`}
+                    high={priceData.high_24h ? `$${Number(priceData.high_24h).toLocaleString('en-US')}` : `N/A`}
                 // need to add more data points
                 // ^^^like what???
                 />

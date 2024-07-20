@@ -170,7 +170,7 @@ const Graph = ({ coinId }) => { // Define Graph component, accepting coinId as a
             <HighLowVolumeContainer>
                 <p><strong>High:</strong> {`$${Number(high.toFixed(2)).toLocaleString('en-US')}`}</p>
                 <p><strong>Low:</strong> {`$${Number(low.toFixed(2)).toLocaleString('en-US')}`}</p>
-                <p><strong>Volume:</strong> {`${Number(volume.toFixed(2)).toLocaleString('en-US')}`}</p>
+                <p><strong>Volume:</strong> {`$${Number(volume.toFixed(2)).toLocaleString('en-US')}`}</p>
             </HighLowVolumeContainer>
         );
     };
