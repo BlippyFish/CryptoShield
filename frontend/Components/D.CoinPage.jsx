@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { useParams } from 'react-router-dom';
 import Coin from './E.Coin';
 import { useParams } from 'react-router-dom'; //new import
 
@@ -36,23 +37,21 @@ const CoinPage = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-          try {
-            console.log(`Fetching data for coinId: ${coinId}`);
-            const response = await fetch(`/api/completeCoin/${coinId}`, {
-              method: "GET"
-            });
-            if (!response.ok) {
-              throw new Error(`Error: ${response.status}`);
+            try {
+                const response = await fetch('/api/completeCoin/${coinId}', {
+                    method: "GET"
+                });
+                if (response.ok) {
+                    const data = await response.json();
+                    const newArr = data.coinList.data.items;
+                    setCryptoData(newArr);
+                } else {
+                    // throw new Error('Error:', ${ response.status });
+                }
+            } catch (error) {
+                // console.error("Fetch Error:", error);
+                setError(error.message);
             }
-            const data = await response.json();
-            const newArr = data.data;
-            console.log('Fetched data:', newArr);
-            setCryptoData(newArr);
-            console.log("trying to access Market_data: ", newArr.market_data)
-          } catch (error) {
-            console.error("Fetch Error:", error);
-            setError(error.message);
-          }
         };
    
         fetchData();
@@ -135,4 +134,3 @@ const CoinPage = () => {
 
 
 export default CoinPage;
-

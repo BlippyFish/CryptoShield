@@ -29,20 +29,20 @@ const Footer = styled.div`
   justify-content: space-between;
 `;
 //Stretch feature:
-  // const CheckBoxStyle = styled.input`
-  //   height: 15px;
-  //   width: 15px;
-  //   cursor: pointer;
-  //   margin-top: 25px;
-  // `;
+// const CheckBoxStyle = styled.input`
+//   height: 15px;
+//   width: 15px;
+//   cursor: pointer;
+//   margin-top: 25px;
+// `;
 
-  // const CompareText = styled.span`
-  //   font-size: 0.75rem;
-  //   color: #333;
-  //   text-align: left;
-  //   margin-top: 25px;
-  //   margin-right: 5px;
-  // `;
+// const CompareText = styled.span`
+//   font-size: 0.75rem;
+//   color: #333;
+//   text-align: left;
+//   margin-top: 25px;
+//   margin-right: 5px;
+// `;
 
 const Name = styled.h3`
 `;
@@ -81,7 +81,7 @@ const PreviewCard = ({ name, price, symbol, logo, rank }) => { // Added onClick 
       <Name>{name}</Name>
       <Logo src={logo} alt={`${name} logo`} />
       <Footer>
-        <Price><b>Active Price:</b> ${Number(price.toFixed(2)).toLocaleString('en-US')}</Price> 
+        <Price><b>Active Price:</b> ${Number(price.toFixed(2)).toLocaleString('en-US')}</Price>
         <Rank><b>Rank:</b> #{rank}</Rank>
       </Footer>
     </CardStyle>

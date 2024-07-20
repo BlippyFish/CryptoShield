@@ -7,7 +7,7 @@ import Select from 'react-select';
 const Container = styled.div`
 background-color: #0f1c3f;
 color: white;
-padding: 12px;
+padding: 200px;
 text-align: center;
 `;
 
@@ -42,9 +42,10 @@ max-width: 100%;
 const handleClick = (name) => {
     console.log(`clicked ${name}`)
     // We can't fully build this out yet
-  };
+};
 
 const HomePage = () => {
+
     const [cryptoData, setCryptoData] = useState([]);
     const [filteredData, setFilteredData] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -80,7 +81,7 @@ const HomePage = () => {
         //format the API response for react-select
         let options = cryptoData.map(function (coin) {
             return { value: coin.name, label: coin.name };
-          })
+        })
         setFilteredData(options);
     }, [searchTerm, cryptoData]);
 
@@ -90,7 +91,10 @@ const HomePage = () => {
 
   
 
-    
+    // const handleSelectChange = (selectedOption) => {
+    //     navigate(`/coin/${selectedOption.value}`);
+    // };
+
 
     return (
         <Container>
@@ -111,26 +115,26 @@ const HomePage = () => {
       </CardContainer>
 
             <SearchBarContainer>
-                <div style={{width: '100%'}}>
-                {/* needed separate div to format width of Select */}
-                <Select
-                styles={{
-                    menu: (baseStyles) => ({
-                      ...baseStyles,
-                      color: 'black',
-                    }),
-                }}
-                menuPlacement='auto'
-                placeholder="Search"
-                options = {filteredData}
-                value = {searchTerm}
-                labelKey = 'name'
-                valueKey = 'name'
-                color = 'black'
-                //onChange={(e) => setSearchTerm(e.target.value)} 
-                onChange={(e) =>handleClick(e.value)}
-                />
-                
+                <div style={{ width: '100%' }}>
+                    {/* needed separate div to format width of Select */}
+                    <Select
+                        styles={{
+                            menu: (baseStyles) => ({
+                                ...baseStyles,
+                                color: 'black',
+                            }),
+                        }}
+                        menuPlacement='auto'
+                        placeholder="Search"
+                        options={filteredData}
+                        value={searchTerm}
+                        labelKey='name'
+                        valueKey='name'
+                        color='black'
+                        //onChange={(e) => setSearchTerm(e.target.value)} 
+                        onChange={(e) => handleClick(e.value)}
+                    />
+
                 </div>
             </SearchBarContainer>
         </Container>
