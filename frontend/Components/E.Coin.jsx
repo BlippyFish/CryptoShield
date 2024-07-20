@@ -75,6 +75,7 @@ const NewsText = styled.div`
 `;
 
 
+
 const Coin = ({ name, price, symbol, logo, volume, percentChange24H, rank, rating_score, marketCap, circulatingSupply, totalSupply, low, high }) => {
 
   const [coinsData, setCoinsData] = useState([]);

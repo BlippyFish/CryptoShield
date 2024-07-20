@@ -81,10 +81,9 @@ const PreviewCard = ({ name, price, symbol, logo, rank }) => {
         <CompareText>Compare</CompareText> */}
       </Header>
       <Name>{name}</Name>
-      <Logo src={logo} alt={`${name} logo`} />
       <Footer>
-      <Price><b>Active Price:</b> ${Number(price.toFixed(2)).toLocaleString('en-US')}</Price> 
-      <Rank><b>Rank:</b> #{rank}</Rank>
+        <Price><b>Active Price:</b> ${Number(price.toFixed(2)).toLocaleString('en-US')}</Price>
+        <Rank><b>Rank:</b> #{rank}</Rank>
       </Footer>
     </CardStyle>
   );

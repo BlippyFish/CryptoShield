@@ -5,9 +5,8 @@ import Select from 'react-select';
 
 const Container = styled.div`
 background-color: #0f1c3f;
-min-height: 100vh;
 color: white;
-padding: 20px;
+padding: 12px;
 text-align: center;
 `;
 
@@ -19,44 +18,73 @@ margin-bottom: 25px;
 
 const SearchBarContainer = styled.div`
 display: flex;
-background-color: #2c3e50;
-padding: 10px 20px;
-border-radius: 25px;
-width: 400px;
-margin: 35px;
-margin-left: 525px;
-`;
-
-const SearchBar = styled.input`
-display: flex;
-align-items: center;
 justify-content: center;
-width: 100%;
-padding: 10px;
-border: none;
-outline: none;
-font-size: 1rem;
-background-color: transparent;
-color: white;
-`;
-
-
-
-const SearchIcon = styled.div`
-font-size: 1.5rem;
-color: white;
-margin: 0 10px;
+background-color: #2c3e50;
+padding: 10px 12px;
+border-radius: 10px;
+width: 400px;
+margin: 20px;
+margin-left: 544px;
 `;
 
 const CardContainer = styled.div`
 display: grid;
-grid-template-columns: 1fr 15em 1fr;
+grid-template-columns: repeat(auto-fill, 425px);
 align-items: start;
-justify-items: center;
-grid-gap: 10px;
+justify-content: center;
+overflow-y:auto;
+scrollbar-width: none;
+max-height: 460px;
+max-width: 100%;
 `;
 
+const handleClick = (name) => {
+    console.log(`clicked ${name}`)
+    // We can't fully build this out yet
+};
+
+// Styling for Select menu dropdown -- don't touch
+const customStyles = {
+    control: (provided) => ({
+        ...provided,
+        borderRadius: '10px',
+        borderColor: '#ccc',
+        boxShadow: 'none',
+        '&:hover': {
+            borderColor: '#888',
+        },
+        height: '50px',
+        minHeight: '50px',
+        backgroundColor: '#f0f0f0',
+        width: '500px',
+    }),
+    input: (provided) => ({
+        ...provided,
+        color: '#333',
+    }),
+    placeholder: (provided) => ({
+        ...provided,
+        color: '#999',
+        textAlign: 'left',
+    }),
+    singleValue: (provided) => ({
+        ...provided,
+        color: '#333',
+    }),
+    menu: (provided) => ({
+        ...provided,
+        backgroundColor: '#fff',
+    }),
+    option: (provided, state) => ({
+        ...provided,
+        backgroundColor: state.isSelected ? '#ccc' : state.isFocused ? '#e0e0e0' : '#fff',
+        color: '#333',
+    }),
+};
+
+
 const HomePage = () => {
+
     const [cryptoData, setCryptoData] = useState([]);
     const [filteredData, setFilteredData] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -122,7 +150,7 @@ const HomePage = () => {
         //console.log("filtered: ", filteredData)
         let options = cryptoData.map(function (coin) {
             return { value: coin.name, label: coin.name };
-          })
+        })
         setFilteredData(options);
     }, [searchTerm, cryptoData]);
 
@@ -130,11 +158,14 @@ const HomePage = () => {
         return <div>Loading...</div>;
     }
 
-    if (error) {
-        return <div>Error: {error.message}</div>;
-    }
+    // if (error) {
+    //     return <div>Error: {error.message}</div>;
+    // }
 
-    
+    // const handleSelectChange = (selectedOption) => {
+    //     navigate(`/coin/${selectedOption.value}`);
+    // };
+
 
     return (
         <Container>
@@ -151,21 +182,29 @@ const HomePage = () => {
                     />
                 ))}
             </CardContainer>
-
             <SearchBarContainer>
-                <div style={{width: '100%'}}>
-                <Select
-                menuPlacement='auto'
-                placeholder="Search"
-                options = {filteredData}
-                value = {searchTerm}
-                labelKey = 'name'
-                valueKey = 'name'
-                color = 'black'
-                onChange={(e) => setSearchTerm(e.target.value)} 
-                />
+                <div style={{ width: '100%' }}>
+                    {/* needed separate div to format width of Select */}
+                    <Select
+                        styles={{
+                            menu: (baseStyles) => ({
+                                ...baseStyles,
+                                color: 'black',
+                            }),
+                        }}
+                        menuPlacement='auto'
+                        placeholder="Search"
+                        options={filteredData}
+                        value={searchTerm}
+                        labelKey='name'
+                        valueKey='name'
+                        color='black'
+                        //onChange={(e) => setSearchTerm(e.target.value)} 
+                        onChange={(e) => handleClick(e.value)}
+                    />
                 </div>
             </SearchBarContainer>
+            Col
         </Container>
     );
 };

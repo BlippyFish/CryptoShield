@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { useParams } from 'react-router-dom';
 import Coin from './E.Coin';
 
 const Container = styled.div`
@@ -17,15 +18,6 @@ const Content = styled.div`
   border-radius: 10px;
 `;
 
-/*
-
-Rank = index
-Rating = rating
-Market Cap = market_cap
-Circulating Supply = circulating_supply
-Total Supply = max_supply
-
-*/
 
 const CoinPage = ({ rating, market_cap, circulating_supply, max_supply }) => {
 
@@ -36,7 +28,7 @@ const CoinPage = ({ rating, market_cap, circulating_supply, max_supply }) => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch('/api/coins', {
+                const response = await fetch('/api/completeCoin/${coinId}', {
                     method: "GET"
                 });
                 if (response.ok) {
@@ -44,7 +36,7 @@ const CoinPage = ({ rating, market_cap, circulating_supply, max_supply }) => {
                     const newArr = data.coinList.data.items;
                     setCryptoData(newArr);
                 } else {
-                    throw new Error(`Error: ${response.status}`);
+                    // throw new Error('Error:', ${ response.status });
                 }
             } catch (error) {
                 // console.error("Fetch Error:", error);
@@ -67,8 +59,13 @@ const CoinPage = ({ rating, market_cap, circulating_supply, max_supply }) => {
                         key={index}
                         name={crypto.name}
                         price={crypto.price.toLocaleString('en-US')}
-                        rating={crypto.rating_score}
                         rank={cryptoData.indexOf(crypto) + 1}
+                        rating={crypto.rating_score}
+                        marketCap={crypto.market_cap}
+                        ciruclatingSupply={crypto.circulating_supply}
+                        totalSupply={max_supply}
+                    // market
+                    // rank={crypto}
                     // need to add more data points
                     />
                 ))}

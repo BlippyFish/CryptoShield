@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Homepage from './B.Homepage';
-import PreviewCard from './C.PreviewCard';
 import CoinPage from './D.CoinPage';
 
 const App = () => {
