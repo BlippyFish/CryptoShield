@@ -1,4 +1,3 @@
-<!-- ![CryptoShield Logo](resource/IMG_3495.jpg) -->
 
 <style>
   body {
@@ -158,7 +157,7 @@ This project is licensed under the MIT license. See the [LICENSE](LICENSE.md) fi
 ## Team
 
 **Follow us on `GitHub`:**
-<div style="background-color: #d3d3d3; padding: 15px; border-radius: 5px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19);">
+<div style="opacity: 0.7; background-color: #d3d3d3; padding: 15px; border-radius: 5px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19);">
   <p><strong style="color: #36454F;">Front End Developers:</strong> <span style="font-size: 1.2em; color: #0073e6;"><a href="https://github.com/alazaraklilu" style="color: #0073e6;">Alazar Aklilu</a>, <a href="https://github.com/MZiegler96" style="color: #0073e6;">Micah Ziegler</a></span></p>
   <p><strong style="color: #36454F;">Back End Developers:</strong> <span style="font-size: 1.2em; color: #0073e6;"><a href="https://github.com/austinbfraser" style="color: #0073e6;">Austin Fraser</a>, <a href="https://github.com/JulieHoaglandSorensen" style="color: #0073e6;">Julie Hoagland-Sorensen</a></span></p>
   <p><strong style="color: #36454F;">Data Visualizations and DevOps Engineer:</strong> <span style="font-size: 1.2em; color: #0073e6;"><a href="https://github.com/winjolu" style="color: #0073e6;">Winston Ludlam</a></span></p>
