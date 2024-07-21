@@ -2,22 +2,25 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: './src/index.js',
+  entry: './frontend/index.jsx',
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js'
   },
   devServer: {
-    static: './dist',
+    static: {
+      directory: path.join(__dirname, 'dist'),
+    },
     port: 3000,
     proxy: [
       {
         context: ['/api'],
-        target: 'http://localhost:5000',
+        target: 'http://localhost:8080'
       }
     ],
-    hot: true, // Enable Hot Module Replacement
-    open: true // Open the browser automatically
+    historyApiFallback: true,
+    hot: true,
+    open: true
   },
   module: {
     rules: [
@@ -38,7 +41,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './public/index.html'
+      template: './index.html'
     })
   ],
   resolve: {
