@@ -1,5 +1,8 @@
-// import { createClient } from '@supabase/supabase-js';
+import { createClient } from '@supabase/supabase-js';
 
-// const supabaseUrl = 'https://your-supabase-url.supabase.co';
-// const supabaseKey = 'your-supabase-anon-key';
-// export const supabase = createClient(supabaseUrl, supabaseKey);
+const supabaseUrl = 'https://ptdcusrimsowtumozeln.supabase.co';
+const supabaseKey = process.env.SUPABASE_KEY;
+export const supabase = createClient(supabaseUrl, supabaseKey);
+
+
+
