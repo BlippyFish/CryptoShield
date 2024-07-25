@@ -2,6 +2,8 @@ const axios = require('axios').default;
 
 const tiApiController = {};
 
+
+
 // middleware to retrieve coin list from TI API
 tiApiController.coinListMiddleware = async (req, res, next) => {
   const options = {

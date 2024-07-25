@@ -10,6 +10,7 @@ const app = express();
 const PORT = 8080;
 
 const apiPath = path.join(__dirname, '/routes/api.js');
+
 const routerAPI = require(apiPath);
 
 // const dbFunctionality = () => {
@@ -28,8 +29,6 @@ const routerAPI = require(apiPath);
 //   });
 // };
 
-
-
 app.use(express.json());
 
 // CORS middleware options
@@ -43,6 +42,7 @@ app.use(cors());
 
 // route handler for requests to /api
 app.use('/api', routerAPI);
+
 
 // Unknown route handler
 app.use((req, res) => res.sendStatus(404));
