@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link , useNavigate} from 'react-router-dom';
 import PreviewCard from './C.PreviewCard';
 import Select from 'react-select';
 
@@ -41,10 +41,7 @@ max-height: 460px;
 max-width: 100%;
 `;
 
-const handleClick = (name) => {
-    console.log(`clicked ${name}`)
-    // We can't fully build this out yet
-};
+
 
 const HomePage = () => {
 
@@ -53,8 +50,15 @@ const HomePage = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [searchTerm, setSearchTerm] = useState('');
+    const navigate = useNavigate();
 
+    const handleSelectChange = (selectedOption) => {
+        if (selectedOption) {
+          navigate(`/coinpage/${selectedOption.value}`);
+        }
+      };
 
+    // I think this is where they get name of all the coins
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -82,7 +86,8 @@ const HomePage = () => {
     useEffect(() => {
         //format the API response for react-select
         let options = cryptoData.map(function (coin) {
-            return { value: coin.name, label: coin.name };
+            // changed from name to id so that it can avoid an issue of not name and id not matching (YA)
+            return { value: coin.id, label: coin.name};
         })
         setFilteredData(options);
     }, [searchTerm, cryptoData]);
@@ -133,8 +138,9 @@ const HomePage = () => {
                         labelKey='name'
                         valueKey='name'
                         color='black'
-                        //onChange={(e) => setSearchTerm(e.target.value)}
-                        onChange={(e) => handleClick(e.value)}
+
+                        //onChange={(e) => setSearchTerm(e.target.value)} 
+                        onChange={handleSelectChange}
                     />
 
                 </div>
