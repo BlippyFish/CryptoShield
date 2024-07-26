@@ -5,7 +5,7 @@ const CardStyle = styled.section`
   height: 200px;
   width: 400px;
   margin: 12px;
-  box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.5);
+  box-shadow: 10px 10px 5px rgba(255, 255, 255, 0.5);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -13,6 +13,13 @@ const CardStyle = styled.section`
   background-color: white;
   border-radius: 10px;
   color: black;
+  transition: transform 0,3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: scale(1.06);
+    box-shadow: 12px 12px 7px rgba(255, 255, 255, 0.5);
+    background-color: #c6cbec
+  }
 `;
 
 const Header = styled.div`
@@ -65,7 +72,7 @@ const Rank = styled.div`
 const PreviewCard = ({ name, price, symbol, logo, rank }) => { // Added onClick prop
   const [checked, setChecked] = useState(false);
 
-  
+
 
   const handleSelect = (event) => {
     event.stopPropagation(); //allows click on select btn w/o triggering whole card click

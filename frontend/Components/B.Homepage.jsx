@@ -7,26 +7,28 @@ import Select from 'react-select';
 const Container = styled.div`
 background-color: #0f1c3f;
 color: white;
-padding: 200px;
+padding: 125px;
 text-align: center;
 `;
 
 const Title = styled.h1`
 justify-content: center;
 font-size: 3rem;
-margin-bottom: 25px;
+margin-bottom: 30px;
 `;
 
 const SearchBarContainer = styled.div`
 display: flex;
 justify-content: center;
+align-items: center;
 background-color: #2c3e50;
 padding: 10px 12px;
 border-radius: 10px;
 width: 400px;
-margin: 20px;
-margin-left: 544px;
+margin: 20px auto;
+// margin-left: 544px;
 `;
+
 
 const CardContainer = styled.div`
 display: grid;
@@ -89,7 +91,7 @@ const HomePage = () => {
     //     return <div>Loading...</div>;
     // }
 
-  
+
 
     // const handleSelectChange = (selectedOption) => {
     //     navigate(`/coin/${selectedOption.value}`);
@@ -131,7 +133,7 @@ const HomePage = () => {
                         labelKey='name'
                         valueKey='name'
                         color='black'
-                        //onChange={(e) => setSearchTerm(e.target.value)} 
+                        //onChange={(e) => setSearchTerm(e.target.value)}
                         onChange={(e) => handleClick(e.value)}
                     />
 

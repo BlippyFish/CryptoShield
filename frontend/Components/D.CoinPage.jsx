@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Coin from './E.Coin';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 
 
@@ -12,6 +12,7 @@ min-height: 100vh;
 color: #0f1c3f;
 padding: 20px;
 text-align: center;
+position: relative;
 `;
 
 
@@ -20,6 +21,34 @@ const Content = styled.div`
   padding: 40px;
   font-color: white;
   border-radius: 10px;
+`;
+
+const BackButton = styled.button`
+  background-color: #2c3e50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  display: flex;
+  align-items: center;
+  transition: transform 0,3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    background-color: #24303a;
+    transform: scale(1.05);
+  }
+`;
+
+const Arrow = styled.svg`
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+  margin-right: 8px;
 `;
 
 
@@ -32,6 +61,8 @@ const CoinPage = () => {
 
     // const coinId = props.coinId;
     // const coinId = 'ethereum'; // for testing purposes
+
+    const navigate = useNavigate();
 
 
     useEffect(() => {
@@ -54,7 +85,7 @@ const CoinPage = () => {
             setError(error.message);
           }
         };
-   
+
         fetchData();
       }, [coinId]);
 
@@ -108,6 +139,13 @@ const CoinPage = () => {
 
 
         <Container>
+                <BackButton onClick={() => navigate('/')}>
+                <Arrow xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                 <path d="M15 19l-7-7 7-7" />
+                </Arrow>
+                Back to Homepage
+                </BackButton>
+
             <Content>
                 <Coin
                     key={cryptoData.id ? cryptoData.id : `N/A`}
